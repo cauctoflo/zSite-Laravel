@@ -159,4 +159,6 @@ Route::get('/t', function () {
 
 use App\Http\Controllers\DiscordController;
 
-Route::get('/discord/callback', [DiscordController::class, 'handleCallback'])->name('discord.callback');
+Route::get('/discord/callback', [DiscordController::class, 'handleCallback']);
+
+Route::get('/discord', [DiscordController::class, 'someMethod']);

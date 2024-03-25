@@ -33,6 +33,11 @@ class DiscordController extends Controller
                 $commonGuilds = $this->getCommonGuilds($accessToken);
                 $this->displayGuildIcons($commonGuilds);
                 $this->saveUserDetails($user, $userDiscord, $accessToken);
+
+                    // Store user and guilds in session
+                $request->session()->put('user', $userDiscord);
+                $request->session()->put('guilds', $commonGuilds);
+
             } catch (\Exception $e) {
                 Log::error('Échec de récupération des détails de l\'utilisateur ou de sauvegarde dans la base de données : ' . $e->getMessage());
                 return view('errors.404');
@@ -41,6 +46,14 @@ class DiscordController extends Controller
             echo('error');
             return view('errors.404');
         }
+    }
+
+        public function someMethod(Request $request)
+    {
+        $user = $request->session()->get('user');
+        $guilds = $request->session()->get('guilds');
+
+        return view('discord', ['user' => $user, 'guilds' => $guilds]);
     }
 
     private function getAccessToken($code)
