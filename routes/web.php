@@ -149,3 +149,9 @@ Route::fallback(function () {
 
 
 
+Route::get('/home/dashboard', function () {
+    return view('dashboard.index');
+});
+Route::get('/t', function () {
+    return view('test');
+});
