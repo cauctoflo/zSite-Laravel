@@ -32,7 +32,7 @@ if (!empty($code)) {
         Log::info(json_encode($userDiscord->toArray()));
         // Récupération des détails de l'utilisateur à partir de l'API Discord
         $response = Http::withHeaders([
-            'Authorization' => 'Bot MTExNzY5OTQ1Nzc3ODE5MjQxNA.Gxrw6o.bNsXnRUKPk82PFdnQOks_Pzrt2XhzBl3jNeONg',
+            'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'),
         ])->timeout(30)->get('https://discord.com/api/v10/users/' . $user->getId());
 
         $response = Http::withHeaders([
