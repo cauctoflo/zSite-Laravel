@@ -36,17 +36,30 @@ if (!empty($code)) {
         ])->timeout(30)->get('https://discord.com/api/v10/users/' . $user->getId());
 
         $response = Http::withHeaders([
+            'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'),
+        ])->timeout(60)->get('https://discord.com/api/v10/users/@me/guilds');
+        $botGuilds = $response->json();
+
+        // Get the guilds where the user is present and filter them
+        $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken->getToken(),
         ])->timeout(30)->get('https://discord.com/api/v10/users/@me/guilds');
 
+        
         $guilds = $response->json();
         $filteredGuilds = array_filter($guilds, function ($guild) {
-            // Vérifie si l'utilisateur est propriétaire ou a la permission d'administrateur
+            // Check if the user is owner or has admin permission
             return isset($guild['id']) && ($guild['owner'] || ($guild['permissions'] & 8));
         });
 
+        // Find the common guilds where both the user and the bot are present
+        $commonGuilds = array_uintersect($filteredGuilds, $botGuilds, function ($userGuild, $botGuild) {
+            return $userGuild['id'] - $botGuild['id'];
+        });
+
+
         $discord = [];
-        foreach ($filteredGuilds as $guild) {
+        foreach ($commonGuilds as $guild) {
             $discord[] = [
                 'id' => $guild['id'],
                 'name' => $guild['name'],

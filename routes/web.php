@@ -155,3 +155,8 @@ Route::get('/home/dashboard', function () {
 Route::get('/t', function () {
     return view('test');
 });
+
+
+use App\Http\Controllers\DiscordController;
+
+Route::get('/discord/callback', [DiscordController::class, 'handleCallback']);
