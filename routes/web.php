@@ -133,10 +133,10 @@ Route::get('/alerts/{status}/{classe}/{type}', function ($status, $classe, $type
     $route = 'https://localhost' . request()->path();
     return (new AlertsController)->index($status, $classe, $route, $type);
 
-})
-;Route::get('discord/callback', function () {
-    return view('discord');
 });
+// ;Route::get('discord/callback', function () {
+//     return view('discord');
+// });
 
 
 Route::fallback(function () {
@@ -159,4 +159,4 @@ Route::get('/t', function () {
 
 use App\Http\Controllers\DiscordController;
 
-Route::get('/discord/callback', [DiscordController::class, 'handleCallback']);
+Route::get('/discord/callback', [DiscordController::class, 'handleCallback'])->name('discord.callback');
