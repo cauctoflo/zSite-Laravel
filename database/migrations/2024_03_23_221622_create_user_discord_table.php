@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('username');
             $table->string('discord_id');
+            $table->string('email'); // Add email field
+            $table->boolean('verified'); // Add verified field
+            $table->string('avatar'); // Add avatar field
+            $table->string('language'); // Add language field
             $table->timestamps();
         });
     }
