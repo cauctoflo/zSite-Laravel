@@ -33,9 +33,7 @@ Route::post('/maintenance/endpoint', function (Illuminate\Http\Request $request)
     return view('maintenance');
 });
 
-Route::get('/discord', function () {
-    header('Location: https://discord.gg/3t8K8fz');
-});
+
 
 // Route::prefix('/discord-alert')->group(function () {
 //     Route::get('/', function () {
@@ -134,17 +132,12 @@ Route::get('/alerts/{status}/{classe}/{type}', function ($status, $classe, $type
     return (new AlertsController)->index($status, $classe, $route, $type);
 
 });
-// ;Route::get('discord/callback', function () {
-//     return view('discord');
-// });
-
 
 Route::fallback(function () {
     return view('error/404');
 });
 
 
-// Route::match(['get', 'post'], '/discord/callback', 'DiscordController@handleDiscord');
 
 
 
@@ -153,7 +146,7 @@ Route::get('/home/dashboard', function () {
     return view('dashboard.index');
 });
 Route::get('/t', function () {
-    return view('test');
+    return view('home');
 });
 
 
