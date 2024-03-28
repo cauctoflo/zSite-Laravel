@@ -7,6 +7,7 @@ use Wohali\OAuth2\Client\Provider\Discord;
 use App\Models\UserDiscord;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class DiscordController extends Controller
 {
@@ -29,14 +30,19 @@ class DiscordController extends Controller
             try {
                 $accessToken = $this->getAccessToken($code);
                 $user = $this->getUserDetails($accessToken);
-                $userDiscord = $this->getOrCreateUserDiscord($user);
+                
                 $commonGuilds = $this->getCommonGuilds($accessToken);
+                $this->getAllUserGuilds($accessToken);
+                $userDiscord = $this->getOrCreateUserDiscord($user);
                 $this->displayGuildIcons($commonGuilds);
                 $this->saveUserDetails($user, $userDiscord, $accessToken);
 
                     // Store user and guilds in session
                 $request->session()->put('user', $userDiscord);
                 $request->session()->put('guilds', $commonGuilds);
+                var_dump(session('user'));
+    
+                return view('home');
 
             } catch (\Exception $e) {
                 Log::error('Échec de récupération des détails de l\'utilisateur ou de sauvegarde dans la base de données : ' . $e->getMessage());
@@ -48,11 +54,11 @@ class DiscordController extends Controller
         }
     }
 
-        public function someMethod(Request $request)
+    public function someMethod()
     {
-        $user = $request->session()->get('user');
-        $guilds = $request->session()->get('guilds');
-
+        $user = Session::get('user');
+        $guilds = Session::get('guilds');
+    
         return view('discord', ['user' => $user, 'guilds' => $guilds]);
     }
 
@@ -73,7 +79,7 @@ class DiscordController extends Controller
         return UserDiscord::firstOrNew(['discord_id' => $user->getId()]);
     }
 
-    private function getCommonGuilds($accessToken)
+    public function getCommonGuilds($accessToken)
     {
         $botGuilds = $this->getBotGuilds();
         $userGuilds = $this->getUserGuilds($accessToken);
@@ -92,18 +98,33 @@ class DiscordController extends Controller
         return $response->json();
     }
 
-    private function getUserGuilds($accessToken)
+    public function getUserGuilds($accessToken)
+{
+    $response = Http::withHeaders([
+        'Authorization' => 'Bearer ' . $accessToken->getToken(),
+    ])->timeout(30)->get('https://discord.com/api/v10/users/@me/guilds');
+
+    $guilds = $response->json();
+    session()->put('guilder', $guilds);
+
+    $filteredGuilds = array_filter($guilds, function ($guild) {
+        return isset($guild['id']) && ($guild['owner'] || ($guild['permissions'] & 8));
+    });
+
+    return $filteredGuilds;
+
+}
+
+    public function getAllUserGuilds($accessToken)
     {
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken->getToken(),
         ])->timeout(30)->get('https://discord.com/api/v10/users/@me/guilds');
 
         $guilds = $response->json();
-
-        return array_filter($guilds, function ($guild) {
-            return isset($guild['id']) && ($guild['owner'] || ($guild['permissions'] & 8));
-        });
+        session()->put('guilder', $guilds);
     }
+
 
     private function displayGuildIcons($commonGuilds)
     {

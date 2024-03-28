@@ -20,9 +20,7 @@ Route::get('/', function () {
     return view('maintenance');
 });
 
-Route::get('/test', function () {
-    return view('error/404');
-});
+
 
 Route::post('/maintenance/endpoint', function (Illuminate\Http\Request $request) {
     $email = $request->input('email'); // Récupérer la valeur de l'e-mail à partir de la requête
@@ -155,3 +153,7 @@ use App\Http\Controllers\DiscordController;
 Route::get('/discord/callback', [DiscordController::class, 'handleCallback']);
 
 Route::get('/discord', [DiscordController::class, 'someMethod']);
+
+use App\Http\Controllers\Discords;
+
+Route::get('/test', [Discords::class, 'Index']);
