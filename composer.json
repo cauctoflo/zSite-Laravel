@@ -12,6 +12,7 @@
         "laravel/socialite": "^5.12",
         "laravel/tinker": "^2.8",
         "martinbean/socialite-discord-provider": "^1.2",
+        "reliese/laravel": "^1.2",
         "spatie/laravel-discord-alerts": "^1.4",
         "wohali/oauth2-discord-new": "^1.2"
     },

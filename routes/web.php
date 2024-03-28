@@ -157,3 +157,13 @@ Route::get('/discord', [DiscordController::class, 'someMethod']);
 use App\Http\Controllers\Discords;
 
 Route::get('/test', [Discords::class, 'Index']);
+
+Route::get('/user', function (Illuminate\Http\Request $request) {
+    $userGuilds = $request->session()->get('userGuilds');
+    
+    $userInfo = json_decode($userGuilds, true);
+    $names = array_column($userInfo, 'name');
+    
+    echo $request->session()->put('userInfo', $names);
+    return response()->json(['userInfo' => $request->session()->get('userInfo')]);
+});
