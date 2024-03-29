@@ -131,9 +131,7 @@ Route::get('/alerts/{status}/{classe}/{type}', function ($status, $classe, $type
 
 });
 
-Route::fallback(function () {
-    return view('error/404');
-});
+
 
 
 
@@ -155,17 +153,21 @@ Route::get('/discord/callback', [DiscordController::class, 'handleCallback']);
 Route::get('/discord', function (Illuminate\Http\Request $request) {
     return view('home')->with('request', $request);
 });
-Route::get('/dashboard', function (Illuminate\Http\Request $request) {
-    return view('dashboard.index')->with('request', $request);
+// Route::get('/dashboard/{server.id}/', function (Illuminate\Http\Request $request) {
+//     return view('dashboard.index')->with('request', $request);
+// });
+
+Route::get('/dashboard/{serverid}', function ($serverid) {
+    return view('dashboard.index')->with('request', $serverid);
 });
-
-
 
 use App\Http\Controllers\Discords;
 
 
 
 Route::get('/tests', [Discords::class, 'Index']);
+
+
 
 Route::get('/user', function (Illuminate\Http\Request $request) {
     $userGuilds = $request->session()->get('userGuilds');
@@ -177,7 +179,12 @@ Route::get('/user', function (Illuminate\Http\Request $request) {
     return response()->json(['userInfo' => $request->session()->get('userInfo')]);
 });
 
-Route::get('/guilds', function (Illuminate\Http\Request $request) {
-    $guilds = $request->session()->get('guilds');
-    return response()->json(['guilds' => $guilds]);
+Route::get('/error/perm', function () {
+    return view('Perm');
+});
+Route::get('/error/404', function () {
+    return view('error.404');
+});
+Route::fallback(function () {
+    return view('error/404');
 });

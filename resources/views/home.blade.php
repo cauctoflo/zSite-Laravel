@@ -47,26 +47,29 @@
                         echo '</div>';
                     }
                 }
-                // foreach($userUncomondGuilds as $guild) {
-                //     if (is_array($guild) && array_key_exists('name', $guild)) {
-                //         echo '<div class="flex flex-col shadow-sm rounded-xl bg-gray-800 hover:bg-gray-700 hover:opacity-90 cursor-pointer transition duration-300 ease-in-out">';
-                //         echo '<div class="p-4 md:p-5 flex gap-x-4">';
-                //         echo '<div class="flex-shrink-0 flex justify-center items-center w-[46px] h-[46px] rounded-lg  border-gray-800">';
-                //         echo '<img class="rounded-full w-46 h-46" src="https://cdn.discordapp.com/icons/' . $guild['id'] . '/' . $guild['icon'] . '.png" alt="' . $guild['name'] . '">';
-                //         echo '</div>';
-                //         echo '<div class="grow">';
-                //         echo '<div class="flex items-center gap-x-2">';
-                //         echo '<p class="text-xs uppercase tracking-wide text-gray-500">' . $guild['name'] . '</p>';
-                //         echo '</div>';
-                //         echo '</div>';
-                //         echo '<div class="mt-1 flex items-center gap-x-2">';
-                //         echo '<h3 class="text-xl sm:text-2xl font-medium text-red-500">';
-                //         echo '<i class=\'bx bx-right-top-arrow-circle\'></i> </h3>';
-                //         echo '</div>';
-                //         echo '</div>';
-                //         echo '</div>';
-                //     }
-                // }
+                // @if(is_array($userUncomondGuilds) || is_object($userUncomondGuilds))
+                //     @foreach($userUncomondGuilds as $guild)
+                //         @if(is_array($guild) && array_key_exists('name', $guild))
+                //             <div class="flex flex-col shadow-sm rounded-xl bg-gray-800 hover:bg-gray-700 hover:opacity-90 cursor-pointer transition duration-300 ease-in-out">
+                //                 <div class="p-4 md:p-5 flex gap-x-4">
+                //                     <div class="flex-shrink-0 flex justify-center items-center w-[46px] h-[46px] rounded-lg  border-gray-800">
+                //                         <img class="rounded-full w-46 h-46" src="https://cdn.discordapp.com/icons/{{ $guild['id'] }}/{{ $guild['icon'] }}.png" alt="{{ $guild['name'] }}">
+                //                     </div>
+                //                     <div class="grow">
+                //                         <div class="flex items-center gap-x-2">
+                //                             <p class="text-xs uppercase tracking-wide text-gray-500">{{ $guild['name'] }}</p>
+                //                         </div>
+                //                     </div>
+                //                     <div class="mt-1 flex items-center gap-x-2">
+                //                         <h3 class="text-xl sm:text-2xl font-medium text-red-500">
+                //                             <i class='bx bx-right-top-arrow-circle'></i>
+                //                         </h3>
+                //                     </div>
+                //                 </div>
+                //             </div>
+                //         @endif
+                //     @endforeach
+                // @endif
                 ?>
                 
 
