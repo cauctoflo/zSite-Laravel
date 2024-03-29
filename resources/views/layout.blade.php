@@ -1,3 +1,5 @@
+{{-- text-amber-600 0 hover:text-amber-800 --}}
+
 <header class="sm:flex-nowrap z-50 w-full border-b text-sm py-2.5 sm:py-4 bg-gray-900 border-gray-700">
     <nav class="max-w-7xl flex items-center justify-center mx-auto px-4 sm:px-6 lg:px-8" aria-label="Global">
         <img src="{{ asset('img/logo_sans.png') }}" class="h-10 logo mr-2" alt="Logo">
@@ -16,7 +18,7 @@
             </a>
         </div>
         <div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last-pe-0">
-            <a href="https://test-v2-1.clientxcms.com/admin/customers" class="text-amber-600 0 hover:text-amber-800 inline-flex items-center gap-x-2 focus:outline-none focus:ring-1 focus:ring-gray-600">
+            <a href="https://test-v2-1.clientxcms.com/admin/customers" class="text-gray-400 inline-flex items-center gap-x-2 focus:outline-none focus:ring-1 focus:ring-gray-600">
                 <i class="bi bi-people flex-shrink-0" style="font-size: 16px;"></i> Tableau de bord
             </a>
         </div>

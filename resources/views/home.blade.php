@@ -26,8 +26,10 @@
                 <?php
                 $userGuilds = json_decode(session('userGuilds'), true);
                 $userUncomondGuilds = session('userUncomondGuilds');
+                
 
                 foreach($userGuilds as $guild) {
+                    $serverid = $guild['id'];
                     if (is_array($guild) && array_key_exists('name', $guild)) {
                         echo '<div class="flex flex-col shadow-sm rounded-xl bg-gray-800 hover:bg-gray-700 hover:opacity-90 cursor-pointer transition duration-300 ease-in-out">';
                         echo '<div class="p-4 md:p-5 flex gap-x-4">';
@@ -41,7 +43,7 @@
                         echo '</div>';
                         echo '<div class="mt-1 flex items-center gap-x-2">';
                         echo '<h3 class="text-xl sm:text-2xl font-medium text-green-500">';
-                        echo '<i class=\'bx bx-right-top-arrow-circle\'></i> </h3>';
+                        echo '<a href="/dashboard/'. $serverid .'"><i class=\'bx bx-right-top-arrow-circle\'></i> </a></h3>';
                         echo '</div>';
                         echo '</div>';
                         echo '</div>';
@@ -75,7 +77,7 @@
 
                  </div>
 
-                 
+                
 
         </div>
     </div>

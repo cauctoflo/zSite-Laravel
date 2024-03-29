@@ -66,7 +66,7 @@ if (!$acces) {
                         echo '<div class="mt-1 flex items-center gap-x-2">';
                         echo '<h3 class="text-xl sm:text-2xl font-medium text-red-500">';
                         echo '<div class="flex justify-end mt-2">';
-                        echo '<button class="px-4 py-2 text-sm font-medium text-white bg-amber-600 rounded hover:bg-amber-700 focus:outline-none focus:bg-red-600">Configurer</button>';
+                        echo '<a href="/dashboard/'. $serverid . '/' . $dashboard->name .'" ><button class="px-4 py-2 text-sm font-medium text-white bg-amber-600 rounded hover:bg-amber-700 focus:outline-none focus:bg-red-600">Configurer</button></a>';
                         echo '</div>';
                         echo '</div>';
                         echo '</div>';

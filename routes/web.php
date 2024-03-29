@@ -157,9 +157,7 @@ Route::get('/discord', function (Illuminate\Http\Request $request) {
 //     return view('dashboard.index')->with('request', $request);
 // });
 
-Route::get('/dashboard/{serverid}', function ($serverid) {
-    return view('dashboard.index')->with('request', $serverid);
-});
+
 
 use App\Http\Controllers\Discords;
 
@@ -187,4 +185,14 @@ Route::get('/error/404', function () {
 });
 Route::fallback(function () {
     return view('error/404');
+});
+
+
+// ROUTE DASHBOARD
+
+Route::get('/dashboard/{serverid}', function ($serverid) {
+    return view('dashboard.index')->with('request', $serverid);
+});
+Route::get('/dashboard/{serverid}/{module}', function ($serverid, $modulename) {
+    return view('dashboard.'.$modulename)->with(['serverid' => $serverid]);
 });
