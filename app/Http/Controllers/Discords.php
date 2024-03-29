@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Wohali\OAuth2\Client\Provider\Discord;
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Support\Facades\Cache;
 class Discords extends Controller
 {
     /**
@@ -40,23 +40,19 @@ class Discords extends Controller
                 // Utilise le jeton d'accès pour obtenir les informations de l'utilisateur
                 $userInfo = $provider->getResourceOwner($accessToken);
                 $userGuilds = $this->getCommonGuilds($request);
+                $userUncommonGuilds = $this->getUserGuilds($request);
 
                 // Sauvegarde les informations en session
                 $request->session()->put('userInfo', $userInfo);
                 $request->session()->put('userGuilds', $userGuilds);
+                $request->session()->put('userUncommonGuilds', $userUncommonGuilds);
 
-                // return json_encode($userInfo);
-                return redirect('/user');
-
-
+                return $userUncommonGuilds;
 
             } catch (\Exception $e) {
                 return $e;
             }
         }
-
-        // Redirige l'utilisateur vers la page de connexion Discord
-        return redirect()->away('https://discord.com/api/oauth2/authorize?client_id=' . env('DISCORD_CLIENT_ID') . '&redirect_uri=' . env('DISCORD_REDIRECT_URI') . '&response_type=code&scope=identify');
     }
 
     /**
@@ -70,18 +66,39 @@ class Discords extends Controller
     private function getUserGuilds(Request $request)
     {
         $accessToken = $request->session()->get('accessToken');
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $accessToken->getToken(),
-        ])->timeout(30)->get('https://discord.com/api/v10/users/@me/guilds');
+        $guilds = Cache::remember('user_guilds', 60, function () use ($accessToken) {
+            $retryCount = 0;
+            $retryDelay = 1; // Delay in seconds before retrying
 
-        $guilds = $response->json();
-        session()->put('guilder', $guilds);
+            while ($retryCount < 3) {
+                $response = Http::withHeaders([
+                    'Authorization' => 'Bearer ' . $accessToken->getToken(),
+                ])->timeout(30)->get('https://discord.com/api/v10/users/@me/guilds');
 
-        $filteredGuilds = array_filter($guilds, function ($guild) {
-            return isset($guild['id']) && ($guild['owner'] || ($guild['permissions'] & 8));
+                if ($response->successful()) {
+                    $guilds = $response->json();
+                    session()->put('guilder', $guilds);
+
+                    $filteredGuilds = array_filter($guilds, function ($guild) {
+                        return isset($guild['id']) && ($guild['owner'] || ($guild['permissions'] & 8));
+                    });
+
+                    return $filteredGuilds;
+                } else {
+                    $retryAfter = $response->header('Retry-After');
+                    if ($retryAfter) {
+                        sleep($retryAfter);
+                    } else {
+                        sleep($retryDelay);
+                    }
+                    $retryCount++;
+                }
+            }
+
+            return [];
         });
 
-        return $filteredGuilds;
+        return $guilds;
     }
 
     /**
@@ -91,11 +108,19 @@ class Discords extends Controller
      */
     private function getBotGuilds()
     {
-        $response = Http::withHeaders([
-            'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'),
-        ])->timeout(60)->get('https://discord.com/api/v10/users/@me/guilds');
+        $guilds = Cache::remember('bot_guilds', 60, function () {
+            $response = Http::withHeaders([
+                'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'),
+            ])->timeout(60)->get('https://discord.com/api/v10/users/@me/guilds');
 
-        return $response->json();
+            if ($response->successful()) {
+                return $response->json();
+            } else {
+                return [];
+            }
+        });
+
+        return $guilds;
     }
 
     /**

@@ -152,11 +152,20 @@ use App\Http\Controllers\DiscordController;
 
 Route::get('/discord/callback', [DiscordController::class, 'handleCallback']);
 
-Route::get('/discord', [DiscordController::class, 'someMethod']);
+Route::get('/discord', function (Illuminate\Http\Request $request) {
+    return view('home')->with('request', $request);
+});
+Route::get('/dashboard', function (Illuminate\Http\Request $request) {
+    return view('dashboard.index')->with('request', $request);
+});
+
+
 
 use App\Http\Controllers\Discords;
 
-Route::get('/test', [Discords::class, 'Index']);
+
+
+Route::get('/tests', [Discords::class, 'Index']);
 
 Route::get('/user', function (Illuminate\Http\Request $request) {
     $userGuilds = $request->session()->get('userGuilds');
@@ -166,4 +175,9 @@ Route::get('/user', function (Illuminate\Http\Request $request) {
     
     echo $request->session()->put('userInfo', $names);
     return response()->json(['userInfo' => $request->session()->get('userInfo')]);
+});
+
+Route::get('/guilds', function (Illuminate\Http\Request $request) {
+    $guilds = $request->session()->get('guilds');
+    return response()->json(['guilds' => $guilds]);
 });
