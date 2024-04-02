@@ -161,6 +161,26 @@ Route::get('/discord', function (Illuminate\Http\Request $request) {
 
 use App\Http\Controllers\Discords;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\ModuleAccueilController;
+
+// Route::get('/guilds', function () {
+//     try {
+//         // $token = 'MTExNzY5OTQ1Nzc3ODE5MjQxNA.Gl9u_1.ZyMAAK-QhBQRyKXrlrErhHAjx6MEbcRTQxjkmY'; // Replace with your valid Discord token
+//         $response = Http::withHeaders([
+//             // 'Authorization' => 'Bearer ' . $token,
+//         ])->timeout(30)->get("https://discord.com/api/v10/guilds/1117701270543806476/roles");
+
+//         $roles = $response->json();
+//         return response()->json($roles);
+//     } catch (\Exception $e) {
+//         return response()->json(['error' => $e->getMessage()], 500);
+//     }
+// });
+
+
+
 
 
 Route::get('/tests', [Discords::class, 'Index']);
@@ -193,6 +213,13 @@ Route::fallback(function () {
 Route::get('/dashboard/{serverid}', function ($serverid) {
     return view('dashboard.index')->with('request', $serverid);
 });
+Route::get('/dashboard', function () {
+    return view('home');
+});
 Route::get('/dashboard/{serverid}/{module}', function ($serverid, $modulename) {
     return view('dashboard.'.$modulename)->with(['serverid' => $serverid]);
 });
+
+
+
+Route::get('/view', [ModuleAccueilController::class, 'index']);
