@@ -197,6 +197,12 @@ Route::get('/user', function (Illuminate\Http\Request $request) {
     return response()->json(['userInfo' => $request->session()->get('userInfo')]);
 });
 
+
+Route::get('/dashboard/{serverid}/BVN/Save', function ($serverid) {
+        return view('dashboard.Accueil.save')->with(['serverid' => $serverid]);
+
+});
+
 Route::get('/error/perm', function () {
     return view('Perm');
 });
@@ -218,7 +224,11 @@ Route::get('/dashboard', function () {
 });
 Route::get('/dashboard/{serverid}/{module}', function ($serverid, $modulename) {
     return view('dashboard.'.$modulename)->with(['serverid' => $serverid]);
+
 });
+
+
+
 
 
 

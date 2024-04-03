@@ -12,6 +12,7 @@ foreach ($botDashboard as $discords) {
       $message = $discords->message;
       $toggle = $discords->toggle;
       $module = $discords->module;
+      $type = $discords->type;
       $acces = true;
       echo('true');
       break;
@@ -46,7 +47,10 @@ foreach ($botDashboard as $discords) {
 
     <div id="container" class="bg-custom-color mt-16 p-4 mx-auto w-screen max-w-[85rem] overflow-hidden h-20  rounded-lg">
 
+   <form action="BVN/Save"  method="GET" enctype="multipart/form-data">
+      <input name="bvn" class="hidden" id="module" type="text" placeholder="bvn" value="BVN">
 
+      @csrf
       <div class="flex items-center justify-center">
          <h1 class="text-gray-400 font-bold text-2xl text-center mb-12">Configuration de l'arrivé d'un membre</h1>
          <div class="flex items-center justify-center -mt-12 ml-12 flex-row">
@@ -130,7 +134,7 @@ foreach ($botDashboard as $discords) {
                   Channel
                   </label>
                   <p class="text-red-500 text-xs italic mt-2">Channel ID incorect</p>
-                  <input class="hover:outline-white hover:cursor-pointer shadow bg-slate-900 appearance-none border  w-full py-2 px-3 text-white leading-tight rounded-lg focus:outline-none focus:shadow-outline " id="email" type="text" placeholder="Id" value="<?php echo $channelid;  ?>">
+                  <input name="channelid" class="hover:outline-white hover:cursor-pointer shadow bg-slate-900 appearance-none border  w-full py-2 px-3 text-white leading-tight rounded-lg focus:outline-none focus:shadow-outline " id="channelid" type="text" placeholder="Id" value="<?php echo $channelid;  ?>">
                   <p class="text-sm  text-gray-500">Rentrez l'id du channel où seront envoyés les messages</p>
                </div>
             </div>
@@ -140,7 +144,7 @@ foreach ($botDashboard as $discords) {
                   Role
                   </label>
                   <p class="text-red-500 text-xs italic mt-2">Role ID incorect</p>
-                  <input class="hover:outline-white hover:cursor-pointer shadow bg-slate-900 appearance-none border  w-full py-2 px-3 text-white leading-tight rounded-lg focus:outline-none focus:shadow-outline " id="email" type="email" placeholder="Id" value="<?php echo $roleid;  ?>">
+                  <input name="roleid" class="hover:outline-white hover:cursor-pointer shadow bg-slate-900 appearance-none border  w-full py-2 px-3 text-white leading-tight rounded-lg focus:outline-none focus:shadow-outline " id="roleid" type="text" placeholder="Id" value="<?php echo $roleid;  ?>">
                   <p class="text-sm  text-gray-500">Rentrez l'id du rôle qui sera donné à l'utilisateur</p>
                </div>
             </div>
@@ -182,7 +186,7 @@ foreach ($botDashboard as $discords) {
             <label class="block text-gray-400 font-bold mb-2" for="number">
                Message
             </label>
-            <textarea class="hover:outline-white hover:cursor-pointer h-32 w-full bg-slate-900 text-white outline-none bg-grey-700 rounded-lg pl-4 pr-6 lg:pr-10 leading-relaxed border border-solid transition duration-200 border-grey-700 focus:ring-opacity-30 focus:border-blue-default focus:ring-[4px] focus:ring-blue-default text-grey-500 text-sm py-4"
+            <textarea name="message" class="hover:outline-white hover:cursor-pointer h-32 w-full bg-slate-900 text-white outline-none bg-grey-700 rounded-lg pl-4 pr-6 lg:pr-10 leading-relaxed border border-solid transition duration-200 border-grey-700 focus:ring-opacity-30 focus:border-blue-default focus:ring-[4px] focus:ring-blue-default text-grey-500 text-sm py-4"
                id="role" placeholder="" value="" rows="1">{{ $message }}</textarea>
             <p class="text-sm text-gray-500 max-w-96">Rentrez un message qui sera envoyé lors de l'arrivée d'un utilisateur sur votre serveur discord</p>
            
@@ -221,11 +225,16 @@ foreach ($botDashboard as $discords) {
                   <span class="text-sm">Sauvegarder</span>
                </div>
             </button>
+         </form>
          </div>
       </div>
       </div>
    </div>
 </div>
+
+
+
+
       
 <div id="container3" class="bg-custom-color mt-16 p-4 mx-auto w-screen max-w-[85rem] overflow-hidden h-20  rounded-lg">
 
@@ -396,7 +405,7 @@ foreach ($botDashboard as $discords) {
 
    <div class="flex items-center justify-center mx-auto">
       <div class="mb-4 max-w-sm  mt-20 sm:mt-0 flex items-center justify-center">
-         <button class="bg-green-800 hover:bg-green-700 hover:opacity-90 cursor-pointer transition duration-300 ease-in-out rounded-full w-48 h-8 text-white font-semibold">
+         <button type="submit" class="bg-green-800 hover:bg-green-700 hover:opacity-90 cursor-pointer transition duration-300 ease-in-out rounded-full w-48 h-8 text-white font-semibold">
             <div class="flex gap-2 justify-center items-center">
                <span>
                <i class=' text-xl bx bx-cog'></i>
@@ -494,7 +503,7 @@ foreach ($botDashboard as $discords) {
                Channel
                </label>
                <p class="text-red-500 text-xs italic mt-2">Channel ID incorect</p>
-               <input class="hover:outline-white hover:cursor-pointer shadow bg-slate-900 appearance-none border  w-full py-2 px-3 text-white leading-tight rounded-lg focus:outline-none focus:shadow-outline " id="email" type="email" placeholder="Id">
+               <input class="hover:outline-white hover:cursor-pointer shadow bg-slate-900 appearance-none border  w-full py-2 px-3 text-white leading-tight rounded-lg focus:outline-none focus:shadow-outline " id="channelid" type="text" placeholder="Id">
                <p class="text-sm  text-gray-500">Rentrez l'id du channel où seront envoyés les messages</p>
             </div>
          </div>
@@ -504,7 +513,7 @@ foreach ($botDashboard as $discords) {
                Role
                </label>
                <p class="text-red-500 text-xs italic mt-2">Role ID incorect</p>
-               <input class="hover:outline-white hover:cursor-pointer shadow bg-slate-900 appearance-none border  w-full py-2 px-3 text-white leading-tight rounded-lg focus:outline-none focus:shadow-outline " id="email" type="email" placeholder="Id">
+               <input class="hover:outline-white hover:cursor-pointer shadow bg-slate-900 appearance-none border  w-full py-2 px-3 text-white leading-tight rounded-lg focus:outline-none focus:shadow-outline " id="roleid" type="text" placeholder="Id">
                <p class="text-sm  text-gray-500">Rentrez l'id du rôle qui sera donné à l'utilisateur</p>
             </div>
          </div>
@@ -615,11 +624,13 @@ foreach ($botDashboard as $discords) {
             const menuitems = document.querySelectorAll('[role="menuitem"]');
             const button = document.querySelector('[data-popover-target="menu-1"]');
             const imgDiv = document.getElementById('img');
-
+            document.addEventListener('DOMContentLoaded', function() {
+                      button.textContent = "<?php echo $type; ?>";
+                  });
             menuitems.forEach(item => {
                item.addEventListener('click', () => {
                   button.textContent = item.textContent;
-                  if (item.textContent === "Image") {
+                  if (button.textContent === "Image") {
                      imgDiv.classList.add('hidden');
                   } else {
                      imgDiv.classList.remove('hidden');
