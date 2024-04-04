@@ -4,19 +4,26 @@ $module = new App\Models\ModuleAccueil();
 $botDashboard = $module->get();
 $serverids = $serverid;
 
+var_dump($botDashboard);
+
 foreach ($botDashboard as $discords) {
    if ($discords->id == $serverids) {
       $channelid = $discords->channel;
       $roleid = $discords->role;
       $logid = $discords->log;
       $message = $discords->message;
-      $toggle = $discords->toggle;
+      $bvn = $discords->toggle;
+      
       $module = $discords->module;
       $type = $discords->type;
       $acces = true;
-      echo('true');
       break;
    }
+      else {
+         echo 'Erreur inconnu veuillez contacté le service développement';
+         return;
+
+      }
 }
 
 
@@ -434,7 +441,6 @@ foreach ($botDashboard as $discords) {
       </div>
    </div>
 
-
      
 
    <div
@@ -644,7 +650,7 @@ foreach ($botDashboard as $discords) {
                   const background1 = document.getElementById('background');
                   const dot1 = document.querySelector('.dot');
                   const container1 = document.getElementById("container");
-                  const text = document.getElementById("text");
+                  const text1 = document.getElementById("text");
 
                   toggle1.addEventListener('change', function() {
                      if (toggle1.checked) {
@@ -653,12 +659,19 @@ foreach ($botDashboard as $discords) {
                         background1.classList.add('bg-green-500');
                         container1.classList.remove("h-20");
                         text1.innerHTML = "On";
+                        <?php 
+                        $bvn = True;
+                        ?>
                      } else {
                         dot1.style.transform = 'translateX(0)';
                         background1.classList.add('bg-red-500');
                         background1.classList.remove('bg-green-500');
                         container1.classList.add("h-20");
                         text1.innerHTML = "Off";
+                        <?php 
+                        $bvn = False;
+                        ?>
+                        window.location.href = "BVN/Save?bvn=<?php echo 'Bvn'; ?>&toggle=<?php echo 'False'; ?>&channelid=<?php echo $channelid; ?>&roleid=<?php echo $roleid; ?>&message=<?php echo $message; ?>";                        
                      }
                   });
 
@@ -675,12 +688,19 @@ foreach ($botDashboard as $discords) {
                         background2.classList.add('bg-green-500');
                         container2.classList.remove("h-20");
                         text2.innerHTML = "On";
+                        <?php 
+                        $bvn = True;
+                        ?>
                      } else {
                         dot2.style.transform = 'translateX(0)';
                         background2.classList.add('bg-red-500');
                         background2.classList.remove('bg-green-500');
                         container2.classList.add("h-20");
                         text2.innerHTML = "Off";
+                        <?php 
+                        $bvn = False;
+                        
+                        ?>
                      }
                   });
                   const toggle3 = document.getElementById('toggle3');
@@ -706,8 +726,7 @@ foreach ($botDashboard as $discords) {
                   });
                });
             </script>
-         </script>
-                     
+
 
    </body>
 </html>

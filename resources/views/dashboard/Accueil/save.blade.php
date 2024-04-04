@@ -29,6 +29,10 @@
     <?php
     $id = request()->input('channelid');
     $module = request()->input('bvn');
+    $toggle = request()->input('toggle');
+    if ($module == 'BVN') {
+        $module = 'Bvn';
+    } 
 
     $existingRow = DB::table('module_accueil')->where('id', $id)->where('module', $module)->first();
 
@@ -39,29 +43,47 @@
             ->where('module', $module)
             ->update([
                 'message' => request()->input('message'),
-                'toggle' => 'Activé',
+                'toggle' => request()->input('toggle') === 'Activé' ? 1 : 0,
                 'type' => 'Message',
                 'channel' => request()->input('channelid'),
                 'role' => request()->input('roleid'),
                 'log' => '-'
             ]);
     } else {
-        // Create new row
-        DB::table('module_accueil')->insert([
-            'id' => $id,
-            'module' => $module,
-            'message' => request()->input('message'),
-            'toggle' => 'Activé',
-            'type' => 'Message',
-            'channel' => request()->input('channelid'),
-            'role' => request()->input('roleid'),
-            'log' => '' // Provide a non-null value for 'log' field
-        ]);
+        // Check if row with same id and module exists
+        $existingRowWithSameIdAndModule = DB::table('module_accueil')
+            ->where('id', $id)
+            ->where('module', $module)
+            ->first();
+
+        if ($existingRowWithSameIdAndModule) {
+            // Update existing row with same id and module
+            DB::table('module_accueil')
+                ->where('id', $id)
+                ->where('module', $module)
+                ->update([
+                    'message' => request()->input('message'),
+                    'toggle' => request()->input('toggle') === 'Activé' ? 1 : 0,
+                    'type' => 'Message',
+                    'channel' => request()->input('channelid'),
+                    'role' => request()->input('roleid'),
+                    'log' => '-'
+                ]);
+        } else {
+            // Create new row
+            DB::table('module_accueil')->insert([
+                'id' => $id,
+                'module' => $module,
+                'message' => request()->input('message'),
+                'toggle' => request()->input('toggle') === 'Activé' ? 1 : 0,
+                'type' => 'Message',
+                'channel' => request()->input('channelid'),
+                'role' => request()->input('roleid'),
+                'log' => '' // Provide a non-null value for 'log' field
+            ]);
+        }
     }
-?>
-
-
-    
+    ?>
 
 </body>
 </html>
