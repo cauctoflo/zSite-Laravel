@@ -20,6 +20,9 @@ Route::get('/', function () {
     return view('maintenance');
 });
 
+Route::get('/discord', function () {
+    return redirect('https://discord.gg/gQx7ht97VK');
+});
 
 
 Route::post('/maintenance/endpoint', function (Illuminate\Http\Request $request) {
@@ -150,9 +153,9 @@ use App\Http\Controllers\DiscordController;
 
 Route::get('/discord/callback', [DiscordController::class, 'handleCallback']);
 
-Route::get('/discord', function (Illuminate\Http\Request $request) {
-    return view('home')->with('request', $request);
-});
+//Route::get('/discord', function (Illuminate\Http\Request $request) {
+//    return view('home')->with('request', $request);
+//});
 // Route::get('/dashboard/{server.id}/', function (Illuminate\Http\Request $request) {
 //     return view('dashboard.index')->with('request', $request);
 // });
@@ -216,14 +219,20 @@ Route::fallback(function () {
 
 // ROUTE DASHBOARD
 
-Route::get('/dashboard/{serverid}', function ($serverid) {
-    return view('dashboard.index')->with('request', $serverid);
-});
 Route::get('/dashboard', function () {
     return view('home');
 });
+Route::get('/dashboard/{serverid}', function ($serverid) {
+    return view('dashboard.index')->with('request', $serverid);
+});
 Route::get('/dashboard/{serverid}/{module}', function ($serverid, $modulename) {
     return view('dashboard.'.$modulename)->with(['serverid' => $serverid]);
+
+});
+
+
+Route::get('/accueil', function () {
+    return view('dashboard.Accueil.index');
 
 });
 
