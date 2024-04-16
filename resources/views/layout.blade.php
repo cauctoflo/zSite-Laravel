@@ -19,38 +19,14 @@
         </div>
         <div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last-pe-0">
             <a href="customers" class="text-gray-400 inline-flex items-center gap-x-2 focus:outline-none focus:ring-1 focus:ring-gray-600">
-                <i class="bi bi-people flex-shrink-0" style="font-size: 16px;"></i> Tableau de bord
+                <i class="bi bi-people flex-shrink-0" style="font-size: 16px;"></i> Mes informations
             </a>
         </div>
         <div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last-pe-0">
             <a href="customers" class="inline-flex items-center gap-x-2 text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600">
-                <i class="bi bi-people flex-shrink-0" style="font-size: 16px;"></i> zAccueil
+                <i class="bi bi-people flex-shrink-0" style="font-size: 16px;"></i> Mon abonnement
             </a>
         </div>
-        <div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last-pe-0">
-            <a href="services" class="inline-flex items-center gap-x-2 text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600">
-                <i class="bi bi-box2 flex-shrink-0" style="font-size: 16px;"></i> zBump
-            </a>
-        </div>
-        <div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last-pe-0">
-            <a href="invoices" class="inline-flex items-center gap-x-2 text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600">
-                <i class="bi bi-receipt-cutoff flex-shrink-0" style="font-size: 16px;"></i> zCaptcha
-            </a>
-        </div>
-        <div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last-pe-0">
-            <a href="settings" class="inline-flex items-center gap-x-2 text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600">
-                <i class="bi bi-gear flex-shrink-0" style="font-size: 16px;"></i> zModération
-            </a>
-        </div>
-        <div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last-pe-0">
-            <a href="history" class="inline-flex items-center gap-x-2 text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600">
-                <i class="bi bi-archive flex-shrink-0" style="font-size: 16px;"></i> zTicket
-            </a>
-        </div>
-        <div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last-pe-0">
-            <a href="emails" class="inline-flex items-center gap-x-2 text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600">
-                <i class="bi bi-envelope flex-shrink-0" style="font-size: 16px;"></i> zLevels
-            </a>
-        </div>
+        
     </div>
 </nav>

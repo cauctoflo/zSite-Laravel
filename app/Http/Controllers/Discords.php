@@ -47,7 +47,8 @@ class Discords extends Controller
                 $request->session()->put('userGuilds', $userGuilds);
                 $request->session()->put('userUncommonGuilds', $userUncommonGuilds);
 
-                return $userUncommonGuilds;
+                // return $userUncommonGuilds;
+                return redirect('/dashboard');
 
             } catch (\Exception $e) {
                 return $e;
