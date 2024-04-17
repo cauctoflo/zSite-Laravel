@@ -60,7 +60,7 @@ if (!$acces) {
                         echo '</div>';
                         echo '<div class="grow">';
                         echo '<div class="flex items-center gap-x-2">';
-                        echo '<p class="text-xs uppercase tracking-wide text-gray-500">' . $dashboard->name . '</p>';
+                        echo '<p class="text-xs uppercase tracking-wide text-gray-500">' . '$dashboard->name' . '</p>';
                         echo '</div>';
                         echo '</div>';
                         echo '<div class="mt-1 flex items-center gap-x-2">';
