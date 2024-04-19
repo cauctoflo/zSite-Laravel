@@ -1,4 +1,23 @@
 
+<?php 
+
+$userGuilds = json_decode(session('userGuilds'), true);
+$userUncomondGuilds = session('userUncomondGuilds');
+                
+$url = request()->url();
+$dashboardSlug = substr($url, strpos($url, 'dashboard/') + 10);
+$dashboardSlug = substr($dashboardSlug, 0, strpos($dashboardSlug, '/'));
+foreach($userGuilds as $guild) {
+
+   if ($guild['id'] == $serverid) {
+      $sername = $guild['name'];
+      $serid = $guild['id'];
+      $sericon = $guild['icon'];
+   }
+   
+}
+
+?>
 
 
 
@@ -13,7 +32,7 @@
          <div class="w-full flex-1 overflow-y-auto no-scrollbar h-full">
             <div class="p-5">
                <header class="flex items-center justify-center gap-5 p-1">
-                  <a href="/en/dashboard/785935439633973318">
+                  <a href="zpoq.fr">
                      <div class="_logo_hnnn1_1 _classic_hnnn1_18">
                         <img src="{{ asset('img/logo_sans.png') }}" class="h-20 logo mr-2" alt="Logo">
                         
@@ -21,59 +40,48 @@
                   </a>
                </header>
 
-               <div class="mt-5">
-                  <div class="relative ">
-                     <div class="overflow-hidden flex items-center justify-start group bg-gray-700 rounded-lg border border-solid transition-all duration-200 active:ring-opacity-30 active:ring-[4px] hover:border-blue-default border-gray-900 active:border-blue-default ring-blue-default">
-                        <div class="bg-transparent outline-none border-none py-3 w-full px-4 cursor-pointer flex justify-between items-center text-body text-gray-100">
-                           <div class="flex justify-start items-center gap-3">
-                              <img src="https://cdn.discordapp.com/icons/785935439633973318/19a3ff3f4867e5a1b920afc03e11147c.jpg" alt="ProxBot - Bot 100% configurable" class="w-6 h-6 rounded-full">
-                              <p class="text-gray-100 text-ellipsis overflow-hidden font-bold text-base">ProxBot - Bot 100% configurable</p>
-                           </div>
-                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="transition-all ml-auto rotate-180">
-                              <path d="M7 14.5l5-5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                           </svg>
-                        </div>
-                     </div>
-                     <div class="top-[50px] absolute  left-0 z-10 w-full rounded-lg bg-gray-700 max-h-[320px] overflow-auto transition-all duration-200 shadow-sm p-2 transform
-                        pointer-events-none opacity-0 translate-y-0">
-                        <ul class="">
-                           <li class="p-2 rounded-lg transition duration-200 hover:bg-grey-600 font-sans text-base text-gray-100 cursor-pointer flex items-center justify-start bg-grey-600">
-                              <div class="w-full">
-                                 <div class="flex justify-start items-center gap-3">
-                                    <img src="https://cdn.discordapp.com/icons/785935439633973318/19a3ff3f4867e5a1b920afc03e11147c.jpg" alt="ProxBot - Bot 100% configurable" class="w-6 h-6 rounded-full">
-                                    <p class="text-gray-100 text-ellipsis overflow-hidden font-bold text-base">ProxBot - Bot 100% configurable</p>
-                                 </div>
+               <a href="/dashboard/">
+                  <div class="mt-5">
+                     <div class="relative ">
+                        <div class="overflow-hidden flex items-center justify-start group bg-gray-700 rounded-lg border border-solid transition-all duration-200 active:ring-opacity-30 active:ring-[4px] hover:border-blue-default border-gray-900 active:border-blue-default ring-blue-default">
+                           <div class="bg-transparent outline-none border-none py-3 w-full px-4 cursor-pointer flex justify-between items-center text-body text-gray-100">
+                              <div class="flex justify-start items-center gap-3">
+                                 <img src="{{ 'https://cdn.discordapp.com/icons/' . $serid . '/' . $sericon . '.png' }}" alt="{{ $sername }}" class="w-6 h-6 rounded-full">
+                                 <p class="text-gray-100 text-ellipsis overflow-hidden font-bold text-base">{{ $sername }}</p>
                               </div>
-                           </li>
-                        </ul>
-                        <div class="h-px bg-gray-700 w-full my-2"></div>
-                        <a class="flex items-center p-1.5 gap-4 text-sm hover:text-brand-hover text-gray-100 transition-all" href="/en/dashboard">
-                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M3.353 8.95A7.511 7.511 0 018.95 3.353c2.006-.47 4.094-.47 6.1 0a7.511 7.511 0 015.597 5.597c.47 2.006.47 4.094 0 6.1a7.511 7.511 0 01-5.597 5.597c-2.006.47-4.094.47-6.1 0a7.511 7.511 0 01-5.597-5.597 13.354 13.354 0 010-6.1z" fill="transparent" data-fill="secondary" stroke="currentColor" data-stroke="main" stroke-width="1.5"></path>
-                              <path d="M14.5 12h-5m2.5 2.5v-5" stroke="currentColor" data-stroke="main" stroke-width="1.5" stroke-linecap="round"></path>
-                           </svg>
-                           Add new server
-                        </a>
+                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="transition-all ml-auto rotate-180">
+                                 <path d="M7 14.5l5-5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                              </svg>
+                           </div>
+                        </div>
+
+                        
                      </div>
                   </div>
-               </div>
+               </a>  
                <div class="grid grid-cols-1 gap-3 mt-6 ">
                   <ul>
                      <div></div>
-                     <div>
+                     <a href="/dashboard/{{$serverid}}">
                         <div>
-                           <div id="dashboard" class="flex items-center justify-between rounded py-2 px-3 group w-full hover:bg-gray-700 z-[999] cursor-pointer">
-                              <div class="flex flex-1 whitespace-nowrap items-center text-ellipsis hover:text-gray-100 cursor-pointer gap-4 text-sm font-medium">
-                                 <i class='text-2xl bx bxs-dashboard'></i>
+                           <div>
+                              
+                                 <div id="dashboard" class="flex items-center justify-between rounded py-2 px-3 group w-full hover:bg-gray-700 z-[999] cursor-pointer">
+                                    <div class="flex flex-1 whitespace-nowrap items-center text-ellipsis hover:text-gray-100 cursor-pointer gap-4 text-sm font-medium">
+                                       <i class='text-2xl bx bxs-dashboard'></i>
 
-                                 <div><a class="bg-gradient-to-r text-transparent bg-clip-text from-gray-300 to-gray-300 group-hover:from-gray-100 group-hover:to-gray-100">Dashboard</a></div>
-                              </div>
+                                       <div>
+                                          <p class="bg-gradient-to-r text-transparent bg-clip-text from-gray-300 to-gray-300 group-hover:from-gray-100 group-hover:to-gray-100  ">Dashboard</p>
+                                       </div>
+                                    </div>
+                                 </div>
+                              
                            </div>
                         </div>
-                     </div>
+                     </a>
                      <div>
                         <div>
-                           <div id="leaderboard" class="flex items-center justify-between rounded py-2 px-3 group w-full hover:bg-gray-700 z-[999] cursor-pointer">
+                           <div id="bump" class="flex items-center justify-between rounded py-2 px-3 group w-full hover:bg-gray-700 z-[999] cursor-pointer">
                               <div class="flex flex-1 whitespace-nowrap items-center text-ellipsis hover:text-gray-100 cursor-pointer gap-4 text-sm font-medium">
                                  <i class='text-2xl bx bx-group'></i>
                                  <div><a class="bg-gradient-to-r text-transparent bg-clip-text from-gray-300 to-gray-300 group-hover:from-gray-100 group-hover:to-gray-100">Bump</a></div>
@@ -127,9 +135,9 @@
                                        <path d="M20.45 9.85a1.14 1.14 0 00-1.73.13L16 13.4l-.12-.27 2.54-5.9a1.64 1.64 0 00-.65-2.09 1.34 1.34 0 00-1.87.73l-2.15 5-.4-.2L15 4.17a1.62 1.62 0 00-1-1.95 1.41 1.41 0 00-1.74 1.1l-1.77 7.09-.37.11.59-6.08a1.43 1.43 0 00-1.15-1.61 1.35 1.35 0 00-1.45 1.29l-.85 8.76h-.15l-.26.1-1-3.23a1.32 1.32 0 00-1.64-1l-.17.06a1.56 1.56 0 00-.75 1.93l1.74 5.74a4 4 0 00.13.74 3.38 3.38 0 003 2.67 4.9 4.9 0 002 1.27c2.64.82 5.37-.9 6.11-3.85a.43.43 0 000-.11l4.23-5.42a1.5 1.5 0 00-.05-1.93z" fill="currentColor" data-fill="main" stroke="currentColor" data-stroke="main" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill-opacity="0.16"></path>
                                        <path d="M19.28 3a3.58 3.58 0 012.31 2.11M20.28 2a2.37 2.37 0 011.6 1.47M4.67 21.07a3.56 3.56 0 01-2.1-2.32M3.57 22a2.39 2.39 0 01-1.45-1.62" stroke="currentColor" data-stroke="main" stroke-miterlimit="10" stroke-linecap="round"></path>
                                     </svg>
-                                    <div><a class="bg-gradient-to-r text-transparent bg-clip-text from-gray-300 to-gray-300 group-hover:from-gray-100 group-hover:to-gray-100 !from-gray-100 !to-gray-100">Arrivées &amp; Aurevoir</a></div>
+                                    <div><a class="bg-gradient-to-r text-transparent bg-clip-text from-gray-300 to-gray-300 group-hover:from-gray-100 group-hover:to-gray-100">Arrivées &amp; Aurevoir</a></div>
                                  </div>
-                                 <div class="inline-block relative rounded-full transition-all duration-200 bg-premium-default bg-opacity-20 text-premium-default ml-3 whitespace-nowrap inline-block text-xs px-2 py-0.5 font-medium">
+                                 <div class=" relative rounded-full transition-all duration-200 bg-premium-default bg-opacity-20 text-premium-default ml-3 whitespace-nowrap inline-block text-xs px-2 py-0.5 font-medium">
                                     <div class="max-w-max flex items-center justify-start">
                                        <div class="flex flex-row items-center gap-2">
                                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4">
@@ -181,7 +189,7 @@
                                     </svg>
                                     <div><a class="bg-gradient-to-r text-transparent bg-clip-text from-gray-300 to-gray-300 group-hover:from-gray-100 group-hover:to-gray-100">Welcome Log</a></div>
                                  </div>
-                                 <div class="inline-block relative rounded-full transition-all duration-200 bg-premium-default bg-opacity-20 text-premium-default ml-3 whitespace-nowrap inline-block text-xs px-2 py-0.5 font-medium">
+                                 <div class=" relative rounded-full transition-all duration-200 bg-premium-default bg-opacity-20 text-premium-default ml-3 whitespace-nowrap inline-block text-xs px-2 py-0.5 font-medium">
                                     <div class="max-w-max flex items-center justify-start">
                                        <div class="flex flex-row items-center gap-2">
                                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4">
@@ -232,7 +240,7 @@
                                     </svg>
                                     <div><a class="bg-gradient-to-r text-transparent bg-clip-text from-gray-300 to-gray-300 group-hover:from-gray-100 group-hover:to-gray-100">Bump</a></div>
                                  </div>
-                                 <div class="inline-block relative rounded-full transition-all duration-200 bg-premium-default bg-opacity-20 text-premium-default ml-3 whitespace-nowrap inline-block text-xs px-2 py-0.5 font-medium">
+                                 <div class=" relative rounded-full transition-all duration-200 bg-premium-default bg-opacity-20 text-premium-default ml-3 whitespace-nowrap inline-block text-xs px-2 py-0.5 font-medium">
                                     <div class="max-w-max flex items-center justify-start">
                                        <div class="flex flex-row items-center gap-2">
                                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4">
@@ -282,7 +290,7 @@
                                     </svg>
                                     <div><a class="bg-gradient-to-r text-transparent bg-clip-text from-gray-300 to-gray-300 group-hover:from-gray-100 group-hover:to-gray-100">Modération</a></div>
                                  </div>
-                                 <div class="inline-block relative rounded-full transition-all duration-200 bg-premium-default bg-opacity-20 text-premium-default ml-3 whitespace-nowrap inline-block text-xs px-2 py-0.5 font-medium">
+                                 <div class=" relative rounded-full transition-all duration-200 bg-premium-default bg-opacity-20 text-premium-default ml-3 whitespace-nowrap inline-block text-xs px-2 py-0.5 font-medium">
                                     <div class="max-w-max flex items-center justify-start">
                                        <div class="flex flex-row items-center gap-2">
                                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4">
@@ -333,7 +341,7 @@
                                     </svg>
                                     <div><a class="bg-gradient-to-r text-transparent bg-clip-text from-gray-300 to-gray-300 group-hover:from-gray-100 group-hover:to-gray-100">Levels</a></div>
                                  </div>
-                                 <div class="inline-block relative rounded-full transition-all duration-200 bg-premium-default bg-opacity-20 text-premium-default ml-3 whitespace-nowrap inline-block text-xs px-2 py-0.5 font-medium">
+                                 <div class=" relative rounded-full transition-all duration-200 bg-premium-default bg-opacity-20 text-premium-default ml-3 whitespace-nowrap inline-block text-xs px-2 py-0.5 font-medium">
                                     <div class="max-w-max flex items-center justify-start">
                                        <div class="flex flex-row items-center gap-2">
                                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4">
@@ -394,7 +402,7 @@
                                     </svg>
                                     <div><a class="bg-gradient-to-r text-transparent bg-clip-text from-gray-300 to-gray-300">Automations</a></div>
                                  </div>
-                                 <div class="inline-block relative rounded-full transition-all duration-200 bg-brand-default bg-opacity-20 text-brand-default ml-3 whitespace-nowrap inline-block min-w-[32px] min-h-[28px] flex flex-row items-center gap-2 justify-center text-xs px-2 py-0.5 font-medium">
+                                 <div class=" relative rounded-full transition-all duration-200 bg-brand-default bg-opacity-20 text-brand-default ml-3 whitespace-nowrap inline-block min-w-[32px] min-h-[28px] flex flex-row items-center gap-2 justify-center text-xs px-2 py-0.5 font-medium">
                                     <div class="max-w-max flex items-center justify-start">
                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" class="" viewBox="0 0 24 24" fill="none" stroke="#4d87e5" stroke-width="3" stroke-linecap="round" stroke-linejoin="arcs">
                                           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>

@@ -25,14 +25,14 @@ Route::get('/discord', function () {
 });
 
 
-Route::post('/maintenance/endpoint', function (Illuminate\Http\Request $request) {
-    $email = $request->input('email'); // Récupérer la valeur de l'e-mail à partir de la requête
-    $users = new \App\Models\notif_user();
-    $users->email=$email;
-    $users->save();    
+// Route::post('/maintenance/endpoint', function (Illuminate\Http\Request $request) {
+//     $email = $request->input('email'); // Récupérer la valeur de l'e-mail à partir de la requête
+//     $users = new \App\Models\notif_user();
+//     $users->email=$email;
+//     $users->save();    
 
-    return view('maintenance');
-});
+//     return view('maintenance');
+// });
 
 
 
@@ -226,8 +226,11 @@ Route::get('/dashboard/{serverid}', function ($serverid) {
     return view('dashboard.index')->with('request', $serverid);
 });
 Route::get('/dashboard/{serverid}/{module}', function ($serverid, $modulename) {
-    return view('dashboard.'.$modulename)->with(['serverid' => $serverid]);
-
+    if (view()->exists('dashboard.'.$modulename . '.module')) {
+        return view('dashboard.'.$modulename . '.module')->with(['serverid' => $serverid]);
+    } else {
+        return view('error.404');
+    }
 });
 
 

@@ -5247,17 +5247,17 @@
         },
         {
             "name": "reliese/laravel",
-            "version": "v1.2.4",
-            "version_normalized": "1.2.4.0",
+            "version": "v1.3.0",
+            "version_normalized": "1.3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reliese/laravel.git",
-                "reference": "8ff949815af7cd7caba6108eb0be4055d1b80353"
+                "reference": "4438db1b1e9bc76c24f642d86bfb68e136943d03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reliese/laravel/zipball/8ff949815af7cd7caba6108eb0be4055d1b80353",
-                "reference": "8ff949815af7cd7caba6108eb0be4055d1b80353",
+                "url": "https://api.github.com/repos/reliese/laravel/zipball/4438db1b1e9bc76c24f642d86bfb68e136943d03",
+                "reference": "4438db1b1e9bc76c24f642d86bfb68e136943d03",
                 "shasum": ""
             },
             "require": {
@@ -5274,7 +5274,7 @@
                 "mockery/mockery": ">=1.4",
                 "phpunit/phpunit": "^9"
             },
-            "time": "2023-12-04T13:28:17+00:00",
+            "time": "2024-04-12T13:55:07+00:00",
             "type": "library",
             "extra": {
                 "laravel": {

@@ -1,26 +1,45 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class ModuleAccueil
+ * 
+ * @property string $id
+ * @property string $module
+ * @property bool $toggle
+ * @property string $type
+ * @property string $message
+ * @property string $channel
+ * @property string $role
+ * @property string $log
+ *
+ * @package App\Models
+ */
 class ModuleAccueil extends Model
 {
-    use HasFactory;
+	protected $table = 'module_accueil';
+	public $incrementing = false;
+	public $timestamps = false;
 
-    protected $table = 'module_accueil'; // Replace 'your_table_name' with the actual table name
+	protected $casts = [
+		'toggle' => 'bool'
+	];
 
-    protected $fillable = [
-        'module',
-        'toggle',
-        'type',
-        'message',
-        'channel',
-        'role',
-        'log',
-    ];
-
-    // Your additional model code goes here
-
+	protected $fillable = [
+		'id',
+		'module',
+		'toggle',
+		'type',
+		'message',
+		'channel',
+		'role',
+		'log'
+	];
 }

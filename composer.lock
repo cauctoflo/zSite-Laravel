@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5076840184c5c581bd10197ce4e250b9",
+    "content-hash": "08b263e4ad4b3f684624e1b7414f7be3",
     "packages": [
         {
             "name": "brick/math",
@@ -3954,16 +3954,16 @@
         },
         {
             "name": "reliese/laravel",
-            "version": "v1.2.4",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reliese/laravel.git",
-                "reference": "8ff949815af7cd7caba6108eb0be4055d1b80353"
+                "reference": "4438db1b1e9bc76c24f642d86bfb68e136943d03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reliese/laravel/zipball/8ff949815af7cd7caba6108eb0be4055d1b80353",
-                "reference": "8ff949815af7cd7caba6108eb0be4055d1b80353",
+                "url": "https://api.github.com/repos/reliese/laravel/zipball/4438db1b1e9bc76c24f642d86bfb68e136943d03",
+                "reference": "4438db1b1e9bc76c24f642d86bfb68e136943d03",
                 "shasum": ""
             },
             "require": {
@@ -4013,7 +4013,7 @@
                 "issues": "https://github.com/reliese/laravel/issues",
                 "source": "https://github.com/reliese/laravel"
             },
-            "time": "2023-12-04T13:28:17+00:00"
+            "time": "2024-04-12T13:55:07+00:00"
         },
         {
             "name": "spatie/laravel-discord-alerts",

@@ -11,38 +11,29 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class ModuleLevel
  * 
- * @property int $id
- * @property string $type
- * @property int $level
- * @property int $xp
- * @property int $message-perm
- * @property int $message-month
- * @property int $vocal-perm
- * @property int $vocal-month
+ * @property string $id
+ * @property bool $toggle
+ * @property string $channel
+ * @property string $channelnoxp
+ * @property string $rolenoxp
  *
  * @package App\Models
  */
 class ModuleLevel extends Model
 {
 	protected $table = 'module_level';
+	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'level' => 'int',
-		'xp' => 'int',
-		'message-perm' => 'int',
-		'message-month' => 'int',
-		'vocal-perm' => 'int',
-		'vocal-month' => 'int'
+		'toggle' => 'bool'
 	];
 
 	protected $fillable = [
-		'type',
-		'level',
-		'xp',
-		'message-perm',
-		'message-month',
-		'vocal-perm',
-		'vocal-month'
+		'id',
+		'toggle',
+		'channel',
+		'channelnoxp',
+		'rolenoxp'
 	];
 }

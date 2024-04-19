@@ -12,35 +12,31 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class BotDashboard
  * 
- * @property string $name
+ * @property int $id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property string $tag
+ * @property bool $premium
+ * @property string $title
  * @property string $description
- * @property Carbon $date
- * @property string $access
- * @property bool $beta
- * @property bool $new
- * @property string $category
+ * @property bool $afficher
  *
  * @package App\Models
  */
 class BotDashboard extends Model
 {
 	protected $table = 'bot_dashboard';
-	public $incrementing = false;
-	public $timestamps = false;
 
 	protected $casts = [
-		'date' => 'datetime',
-		'beta' => 'bool',
-		'new' => 'bool'
+		'premium' => 'bool',
+		'afficher' => 'bool'
 	];
 
 	protected $fillable = [
-		'name',
+		'tag',
+		'premium',
+		'title',
 		'description',
-		'date',
-		'access',
-		'beta',
-		'new',
-		'category'
+		'afficher'
 	];
 }

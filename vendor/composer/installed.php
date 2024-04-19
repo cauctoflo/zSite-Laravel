@@ -912,9 +912,9 @@
             'dev_requirement' => false,
         ),
         'reliese/laravel' => array(
-            'pretty_version' => 'v1.2.4',
-            'version' => '1.2.4.0',
-            'reference' => '8ff949815af7cd7caba6108eb0be4055d1b80353',
+            'pretty_version' => 'v1.3.0',
+            'version' => '1.3.0.0',
+            'reference' => '4438db1b1e9bc76c24f642d86bfb68e136943d03',
             'type' => 'library',
             'install_path' => __DIR__ . '/../reliese/laravel',
             'aliases' => array(),

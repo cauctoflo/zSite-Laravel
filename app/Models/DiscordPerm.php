@@ -9,31 +9,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class ModuleModeration
+ * Class DiscordPerm
  * 
  * @property string $id
- * @property string $module
- * @property bool $toggle
- * @property string $channel
- * @property string $blocked
+ * @property string $command
+ * @property int $toggle
+ * @property string $role
  *
  * @package App\Models
  */
-class ModuleModeration extends Model
+class DiscordPerm extends Model
 {
-	protected $table = 'module_moderation';
+	protected $table = 'discord_perms';
 	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'toggle' => 'bool'
+		'toggle' => 'int'
 	];
 
 	protected $fillable = [
 		'id',
-		'module',
+		'command',
 		'toggle',
-		'channel',
-		'blocked'
+		'role'
 	];
 }

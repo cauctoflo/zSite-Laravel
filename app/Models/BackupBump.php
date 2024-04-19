@@ -6,34 +6,31 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class ModuleModeration
+ * Class BackupBump
  * 
  * @property string $id
- * @property string $module
- * @property bool $toggle
- * @property string $channel
- * @property string $blocked
+ * @property string $member
+ * @property Carbon $date
  *
  * @package App\Models
  */
-class ModuleModeration extends Model
+class BackupBump extends Model
 {
-	protected $table = 'module_moderation';
+	protected $table = 'backup_bump';
 	public $incrementing = false;
 	public $timestamps = false;
 
 	protected $casts = [
-		'toggle' => 'bool'
+		'date' => 'datetime'
 	];
 
 	protected $fillable = [
 		'id',
-		'module',
-		'toggle',
-		'channel',
-		'blocked'
+		'member',
+		'date'
 	];
 }
