@@ -27,11 +27,11 @@ foreach($userGuilds as $guild) {
     <div class="">
         <!--Hero-->
             
-      <div class="flex grow h-screen w-screen bg-dark-700 fixed  z-10 transition-all">
-        <div class="min-w-[300px] scroll-m-1 bg-gray-900 text-white transform  absolute lg:!translate-x-0 left-0 top-0 lg:relative transition-all duration-200 z-[50] h-screen -translate-x-full md:-translate-x-[full]" style="padding-left: 10.5px; width: 350.5px;">
+      <div class="mt-10 flex grow h-screen w-screen bg-dark-700 fixed  z-10 transition-all">
+        <div class="min-w-[300px] scroll-m-1 bg-gray-900 text-white transform  absolute lg:!translate-x-0 left-0 top-0 lg:relative transition-all duration-200 z-[50] h-screen -translate-x-full md:-translate-x-[full]" style="padding-left: 10.5px; width: 300.5px;">
          <div class="w-full flex-1 overflow-y-auto no-scrollbar h-full">
-            <div class="p-5">
-               <header class="flex items-center justify-center gap-5 p-1">
+            <div class="p-5 ">
+               <header class=" fixed pt-4 bg-gray-900 w-11/12 mt-12 pb-4  z-10 flex items-center justify-center gap-5 p-1">
                   <a href="zpoq.fr">
                      <div class="_logo_hnnn1_1 _classic_hnnn1_18">
                         <img src="{{ asset('img/logo_sans.png') }}" class="h-20 logo mr-2" alt="Logo">
@@ -39,7 +39,7 @@ foreach($userGuilds as $guild) {
                      </div>
                   </a>
                </header>
-
+            <div class="mt-[10rem]">
                <a href="/dashboard/">
                   <div class="mt-5">
                      <div class="relative ">
@@ -1512,6 +1512,7 @@ foreach($userGuilds as $guild) {
                                  </div>
                               </div>
                            </div>
+                        </div>
                         </div>
                      </ul>
                   </div>

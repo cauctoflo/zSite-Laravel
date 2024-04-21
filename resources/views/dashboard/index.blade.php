@@ -77,7 +77,7 @@
       <div class="">
          @include('dashboard/sidebar');
       </div>
-      <div class="!overflow-hidden max-w-screen max-w-full lg:max-w-[calc(100vw-300px)] flex flex-col grow relative">
+      <div class="mt-12 overflow-hidden max-w-screen max-w-full lg:max-w-[calc(100vw-300px)] flex flex-col grow relative">
       <div class="flex flex-1 overflow-y-auto px-6 -top-20 lg:px-10 py-0 lg:py-10 relative" id="dashboard__content">
       <div class="max-w-[1540px] min-h-full w-full">
          <div class="fixed lg:max-w-[calc(100%-200px)] w-full z-30 right-0 top-16 p-6 md:p-10 pointer-events-none">
