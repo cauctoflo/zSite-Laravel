@@ -252,3 +252,7 @@ Route::get('/view', [ModuleAccueilController::class, 'index']);
 
 Route::get('/guilds/{guildId}/channels', [Discords::class, 'getDiscordChannels']);
 Route::get('/guilds/{guildId}/roles', [Discords::class, 'getDiscordRoles']);
+
+
+// /guilds/785935439633973318/channels
+// /guilds/785935439633973318/roles
