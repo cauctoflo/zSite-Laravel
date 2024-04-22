@@ -22,7 +22,7 @@
     <div
         class="w-full pt-10 dark:bg-gray-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
         <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"> 
+            <div class="grid mt-32 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"> 
                 <?php
                 $userGuilds = json_decode(session('userGuilds'), true);
                 $userUncomondGuilds = session('userUncomondGuilds');
@@ -31,7 +31,7 @@
                 foreach($userGuilds as $guild) {
                     $serverid = $guild['id'];
                     if (is_array($guild) && array_key_exists('name', $guild)) {
-                        echo '<div class="flex flex-col shadow-sm rounded-xl bg-gray-800 hover:bg-gray-700 hover:opacity-90 cursor-pointer transition duration-300 ease-in-out">';
+                        echo '<div class="flex  flex-col shadow-sm rounded-xl bg-gray-800 hover:bg-gray-700 hover:opacity-90 cursor-pointer transition duration-300 ease-in-out">';
                         echo '<div class="p-4 md:p-5 flex gap-x-4">';
                         echo '<div class="flex-shrink-0 flex justify-center items-center w-[46px] h-[46px] rounded-lg  border-gray-800">';
                         echo '<img class="rounded-full w-46 h-46" src="https://cdn.discordapp.com/icons/' . $guild['id'] . '/' . $guild['icon'] . '.png" alt="' . $guild['name'] . '">';

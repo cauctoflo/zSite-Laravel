@@ -24,10 +24,10 @@ foreach($userGuilds as $guild) {
     <!--Nav-->
 
     
-    <div class="">
+    <div class="bg-white">
         <!--Hero-->
             
-      <div class="mt-10 flex grow h-screen w-screen bg-dark-700 fixed  z-10 transition-all">
+      <div class="mt-10 flex grow h-screen w-auto bg-dark-700 fixed  z-1 transition-all">
         <div class="min-w-[300px] scroll-m-1 bg-gray-900 text-white transform  absolute lg:!translate-x-0 left-0 top-0 lg:relative transition-all duration-200 z-[50] h-screen -translate-x-full md:-translate-x-[full]" style="padding-left: 10.5px; width: 300.5px;">
          <div class="w-full flex-1 overflow-y-auto no-scrollbar h-full">
             <div class="p-5 ">
@@ -1519,6 +1519,10 @@ foreach($userGuilds as $guild) {
                </div>
             </div>
          </div>
+        </div>
+      </div>
+    </div>
+    
         
       
     <script

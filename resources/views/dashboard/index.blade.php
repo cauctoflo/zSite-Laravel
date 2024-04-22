@@ -77,7 +77,7 @@
       <div class="">
          @include('dashboard/sidebar');
       </div>
-      <div class="mt-12 overflow-hidden max-w-screen max-w-full lg:max-w-[calc(100vw-300px)] flex flex-col grow relative">
+      <div class="mt-16 xl:ml-[17rem]  md:xl:ml-[17rem] lg:ml-[17rem] sm:ml-[1rem] overflow-hidden max-w-screen max-w-full lg:max-w-[calc(100vw-300px)] flex flex-col grow relative">
       <div class="flex flex-1 overflow-y-auto px-6 -top-20 lg:px-10 py-0 lg:py-10 relative" id="dashboard__content">
       <div class="max-w-[1540px] min-h-full w-full">
          <div class="fixed lg:max-w-[calc(100%-200px)] w-full z-30 right-0 top-16 p-6 md:p-10 pointer-events-none">
@@ -113,12 +113,12 @@
                   </div>
                </div>
                --}}
-               <div class="mt-14 rounded-lg text-white bg-center bg-cover justify-between bg-gradient-to-tr  min-h-64">
+               <div class="mt-14 rounded-lg text-white bg-center bg-cover justify-between bg-gradient-to-tr  min-h-[34rem] h-[34rem]">
                   <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2 sm:pt-7 pb-4 pl-10 mb-20">
 
                      @foreach ($data as $row)
                      @if ($row['afficher'])
-                        <div class="mr-4 bg-gray-800 hover:bg-gray-700 group cursor-pointer p-6 max-h-[256px] overflow-hidden rounded-lg bg-dark-800 grid grid-cols-1 gap-2 transition-all duration-200 hover:shadow-lg">
+                        <div class="mr-4 bg-gray-800 hover:bg-gray-700 group cursor-pointer p-6 max-h-[32rem] overflow-hidden rounded-lg bg-dark-800 grid grid-cols-1 gap-2 transition-all duration-200 hover:shadow-lg">
                            <div class="flex items-center justify-between">
                               <img width="48" height="64" src="https://img.icons8.com/wired/64/CF823B/module.png" alt="module"/>
                               

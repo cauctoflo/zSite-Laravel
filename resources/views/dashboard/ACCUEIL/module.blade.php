@@ -64,15 +64,15 @@
       </style>
    </head>
    <body class="bg-gray-900">
-      @include('layout');
-         @include('dashboard/sidebar', ['module' => 'accueil', 'serverid' => $serverid]);
 
       
-      </div>
-      </div>
-      </div>
 
-      <div class="xl:ml-[12rem] sm:ml-[1rem]  md:ml-[1rem] lg:ml-[1rem] ">
+
+      @include('layout');
+      @include('dashboard/sidebar', ['module' => 'accueil', 'serverid' => $serverid]);
+
+
+      <div class="xl:ml-[12rem] md:ml-[12rem] lg:mr-[12rem]  sm-ml-10 z-99  ">
 
       <div id="container" class="bg-custom-color mt-32 p-4 mx-auto w-screen max-w-[74rem] overflow-hidden   rounded-lg">
 
@@ -97,7 +97,7 @@
                class="w-full pt-10 dark:bg-gray-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
             <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                  <div class="flex flex-col shadow-sm rounded-xl bg-slate-900 hover:bg-gray-600 hover:opacity-90 cursor-pointer transition duration-300 ease-in-out">
+                  {{-- <div class="flex flex-col shadow-sm rounded-xl bg-slate-900 hover:bg-gray-600 hover:opacity-90 cursor-pointer transition duration-300 ease-in-out">
                      <div class="p-4 md:p-5 flex gap-x-4">
                         <div class="flex-shrink-0 flex justify-center items-center w-[48px] h-[48px] rounded-lg border-gray-800">
                            <h1><i class=' text-5xl text-amber-500 bx bx-line-chart'></i></h1>
@@ -150,9 +150,9 @@
                            </div>
                         </div>
                      </div>
-                  </div>
+                  </div> --}}
                </div>
-              <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8">
+              <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 ">
                   <div class="">
                      <div class="mb-4 max-w-sm mx-auto  sm:mt-0 lg:mt-10">
                         <label class="block text-gray-400 font-bold mb-2" for="number">
@@ -256,10 +256,12 @@
             </div>
          </div>
       </div>
+
+   </body>
       
       
       
-      
+
             
      
 </html>

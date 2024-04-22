@@ -168,6 +168,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\ModuleAccueilController;
 
+
+
 // Route::get('/guilds', function () {
 //     try {
 //         // $token = 'MTExNzY5OTQ1Nzc3ODE5MjQxNA.Gl9u_1.ZyMAAK-QhBQRyKXrlrErhHAjx6MEbcRTQxjkmY'; // Replace with your valid Discord token
@@ -245,3 +247,8 @@ Route::get('/accueil', function () {
 
 
 Route::get('/view', [ModuleAccueilController::class, 'index']);
+
+
+
+Route::get('/guilds/{guildId}/channels', [Discords::class, 'getDiscordChannels']);
+Route::get('/guilds/{guildId}/roles', [Discords::class, 'getDiscordRoles']);
