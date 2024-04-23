@@ -254,5 +254,26 @@ Route::get('/guilds/{guildId}/channels', [Discords::class, 'getDiscordChannels']
 Route::get('/guilds/{guildId}/roles', [Discords::class, 'getDiscordRoles']);
 
 
+Route::post('/dashboard/{serverid}/accueil/save', function ($serverid, Illuminate\Http\Request $request) {
+    $data = $request->except('_token');
+    foreach ($data as $key => $value) {
+        if (empty($value)) {
+        return "vide";
+        break;
+        } else {
+            echo "Key: " . $key . ", Value: " . $value . "<br>";
+        }
+        
+    }
+    
+    // Check if any value is empty
+    if (empty($data)) {
+        return "vide";
+    }
+    
+    // Process the data here
+});
+
+
 // /guilds/785935439633973318/channels
 // /guilds/785935439633973318/roles

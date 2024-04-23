@@ -14,7 +14,7 @@
      * @param string $guildId L'identifiant de la guilde.
      * @return \Illuminate\Http\JsonResponse La liste des noms des canaux.
      */
-   function getDiscordChannels($guildId)
+     function getDiscordChannels($guildId)
    {
       try {
          $response = Http::withHeaders([
@@ -42,9 +42,35 @@
          return response()->json(['error' => $e->getMessage()], 500);
       }
    }
+
+        /**
+     * Récupère les rôles Discord d'une guilde spécifique.
+     *
+     * @param string $guildId L'identifiant de la guilde.
+     * @return \Illuminate\Http\JsonResponse La liste des noms des rôles.
+     */
+     function getDiscordRoles($guildId)
+    {
+        try {
+            $response = Http::withHeaders([
+                'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'), // Obtient le jeton du bot Discord à partir du fichier .env
+            ])->timeout(30)->get("https://discord.com/api/v10/guilds/{$guildId}/roles");
+            
+            $roles = $response->json();
+            
+            $roleNames = array_column($roles, 'name');
+            
+            return response()->json(['roleNames' => $roleNames]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
    $channelNames = getDiscordChannels($guildId); 
-   // foreach ($channelNames->original['channelData'] as $channelName) {
-   //    echo $channelName['name'];
+   $RoleName = getDiscordRoles($guildId); 
+   // var_dump($RoleName);
+   // foreach ($RoleName->original['roleNames'] as $RoleNames) {
+   //    echo $RoleNames;
    //    echo '<br>';
    // }
 
@@ -114,11 +140,11 @@
       @include('dashboard/sidebar', ['module' => 'accueil', 'serverid' => $serverid]);
 
 
-      <div class="xl:ml-[18rem] md:ml-[18rem] lg:mr-[18rem]  sm-ml-10 z-99  ">
+      <div class="xl:ml-[4rem] md:ml-[4rem] lg:ml-[4rem]  sm-ml-10 z-99  ">
 
-      <div id="container" class="bg-custom-color mt-32 p-4 mx-auto max-w-[74rem] overflow-y-hidden w-auto   rounded-lg">
+      <div id="container" class="bg-custom-color mt-32 p-4 mx-auto max-w-[60rem] overflow-y-hidden w-auto   rounded-lg">
 
-      <form action="BVN/Save" method="GET" enctype="multipart/form-data">
+      <form action="accueil/save" method="POST" enctype="multipart/form-data">
          <input name="bvn" class="hidden" id="module" type="text" placeholder="bvn" value="BVN">
 
          @csrf
@@ -159,6 +185,10 @@
                               <div
                                  class="absolute left-0 w-[17rem] max-h-[10rem] overflow-y-auto text-center  origin-top-left bg-gray-900 divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
                                  <div class="py-4 -mt-4">
+                                    <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer ">
+                                       <input type="radio" id="channel" name="channel1" value="Aucun" onclick="">
+                                       Aucun
+                                    </label>
                                     @foreach ($channelNames->original['channelData'] as $channelName)
                                     <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
                                        <input type="radio" id="channel" name="channel1" value="{{ $channelName['name'] }}" onclick="">
@@ -194,10 +224,14 @@
                               <div
                                  class="absolute left-0 w-[17rem] max-h-[10rem] overflow-y-auto text-center  origin-top-left bg-gray-900 divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
                                  <div class="py-4 -mt-4">
-                                    @foreach ($channelNames->original['channelData'] as $channelName)
+                                    <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer ">
+                                       <input type="radio" id="channel" name="channel1" value="Aucun" onclick="">
+                                       Aucun
+                                    </label>
+                                    @foreach ($RoleName->original['roleNames'] as $channelName)
                                     <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
-                                       <input type="radio" id="channel2" name="channel2" value="{{ $channelName['name'] }}" onclick="">
-                                       {{ $channelName['name'] }}
+                                       <input type="radio" id="role" name="role" value="{{ $channelName }}" onclick="">
+                                       {{ $channelName }}
                                     </label>
                                     @endforeach
                                  </div>
@@ -227,6 +261,10 @@
                                  <!-- Dropdown menu -->
                                  <div class="absolute left-0 w-[17rem] max-h-[10rem] overflow-y-auto text-center origin-top-left bg-gray-900 divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
                                     <div class="py-4 -mt-4">
+                                       <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer ">
+                                          <input type="radio" id="channel" name="channel1" value="Aucun" onclick="">
+                                          Aucun
+                                       </label>
                                        @foreach ($channelNames->original['channelData'] as $channelName)
                                        <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
                                           <input type="radio" id="channel3" name="channel3" value="{{ $channelName['name'] }}" onclick="">
