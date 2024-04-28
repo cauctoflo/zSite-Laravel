@@ -66,13 +66,52 @@
         }
     }
 
+   /**
+ /**
+ * Get the ID of a specific Discord role.
+ *
+ * @param string $guildId The guild ID
+ * @param string $roleName The role name 
+ * @return int|null The role ID, or null if not found
+ */
+function getDiscordRoleId($guildId, $roleName) {
+
+  $roles = getDiscordRoles($guildId)->original['roleNames'] ?? [];
+
+  foreach ($roles as $role) {
+    if ($role === $roleName) {
+      
+      $response = Http::withHeaders([
+          'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'), 
+      ])->timeout(30)->get("https://discord.com/api/v10/guilds/{$guildId}/roles");
+
+      $roles = $response->json();
+      
+      return array_column($roles, 'id', 'name')[$roleName]; 
+    }
+  }
+
+  return null;
+
+}
+
+
+
+
+
+
+     
+     
+
+
    $channelNames = getDiscordChannels($guildId); 
    $RoleName = getDiscordRoles($guildId); 
-   // var_dump($RoleName);
-   // foreach ($RoleName->original['roleNames'] as $RoleNames) {
-   //    echo $RoleNames;
-   //    echo '<br>';
-   // }
+   $roleName = 'Zapier';
+
+   $roleId = getDiscordRoleId($guildId, $roleName);
+   var_dump($roleId);
+   
+
 
    // var_dump($botDashboard);
    // foreach ($botDashboard as $discords) {
@@ -439,7 +478,7 @@
                                        </label>
                                        @foreach ($RoleName->original['roleNames'] as $channelName)
                                        <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
-                                          <input type="radio" id="role" name="role" value="-" onclick="">
+                                          <input type="radio" id="role" name="role" value="" onclick="">
                                           {{ $channelName }}
                                        </label>
                                        @endforeach
@@ -563,6 +602,220 @@
                </div>
             </div>
          </form>
+         </div>      
+         
+         
+         <div id="container" class="bg-custom-color mt-32 p-4 mx-auto max-w-[60rem] overflow-y-hidden w-auto   rounded-lg">
+
+         <form action="accueil/BMP/save" method="POST" enctype="multipart/form-data">
+            <input name="bvn" class="hidden" id="module" type="text" placeholder="bvn" value="BVN">
+   
+            @csrf
+            <div class="flex items-center justify-center">
+               <h1 class="text-gray-400 font-bold text-2xl text-center mb-12">Configuration de message privée</h1>
+            </div>
+            <div class="flex items-center justify-center w-[45rem] text-center mx-auto">
+               <p class="text-gray-400 mb-12">
+                  Envoyez automatiquement des messages privés lorsque vos membres rejoint votre serveurs.
+               </p>
+            </div>
+   
+            <div class="w-full pt-10 dark:bg-gray-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+               <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
+   
+                  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                     <div class="hidden">
+                        <div class="mb-4 max-w-sm mx-auto sm:mt-0 lg:mt-10">
+                           <label class="block text-gray-400 font-bold mb-2" for="number">
+                              Channel
+                           </label>
+                           <p class="text-red-500 text-xs italic mt-2">Role ID incorect</p>
+   
+                           <div class="relative inline-block text-left ">
+                              <div class="group">
+                                 <button type="button"
+                                    class="inline-flex justify-center items-center w-[17rem] rounded-xl px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
+                                    Choisir un Channel
+                                    <!-- Dropdown arrow -->
+                                    <svg class="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                       <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
+                                    </svg>
+                                 </button>
+   
+                                 <!-- Dropdown menu -->
+                                 <div
+                                    class="absolute left-0 w-[17rem] max-h-[10rem] overflow-y-auto text-center  origin-top-left bg-gray-900 divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
+                                    <div class="py-4 -mt-4">
+                                       <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer ">
+                                          <input type="radio" id="channel" name="channel1" value="Aucun" onclick="">
+                                          Aucun
+                                       </label>
+                                       @foreach ($channelNames->original['channelData'] as $channelName)
+                                       <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
+                                          <input type="radio" id="channel" name="channel1" value="" onclick="">
+                                          {{ $channelName['name'] }}
+                                       </label>
+                                       @endforeach
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+   
+                     <div class="hidden">
+                        <div class="mb-4 max-w-sm mx-auto sm:mt-0 lg:mt-10">
+                           <label class="block text-gray-400 font-bold mb-2" for="number">
+                              Rôle
+                           </label>
+                           <p class="text-red-500 text-xs italic mt-2">Role ID incorect </p>
+   
+                           <div class="relative inline-block text-left ">
+                              <div class="group">
+                                 <button type="button"
+                                    class="inline-flex justify-center items-center w-[17rem] rounded-xl px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
+                                    Choisir un Channel
+                                    <!-- Dropdown arrow -->
+                                    <svg class="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                       <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
+                                    </svg>
+                                 </button>
+   
+                                 <!-- Dropdown menu -->
+                                 <div
+                                    class="absolute left-0 w-[17rem] max-h-[10rem] overflow-y-auto text-center  origin-top-left bg-gray-900 divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
+                                    <div class="py-4 -mt-4">
+                                       <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer ">
+                                          <input type="radio" id="channel" name="channel1" value="Aucun" onclick="">
+                                          Aucun
+                                       </label>
+                                       @foreach ($RoleName->original['roleNames'] as $channelName)
+                                       <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
+                                          <input type="radio" id="role" name="role" value="" onclick="">
+                                          {{ $channelName }}
+                                       </label>
+                                       @endforeach
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+   
+                     <div class="hidden">
+                        <div class="mb-4 max-w-sm mx-auto sm:mt-0 lg:mt-10">
+                           <label class="block text-gray-400 font-bold mb-2" for="number">
+                              Channel Log
+                           </label>
+                           <p class="text-red-500 text-xs italic mt-2">Channel incorect</p>
+   
+                              <div class="relative inline-block text-left ">
+                                 <div class="group">
+                                    <label for="channel" class="inline-flex justify-center items-center w-[17rem] rounded-xl px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700 cursor-pointer">
+                                       Choisir un Channel
+                                       <!-- Dropdown arrow -->
+                                       <svg class="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                          <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
+                                       </svg>
+                                    </label>
+   
+                                    <!-- Dropdown menu -->
+                                    <div class="absolute left-0 w-[17rem] max-h-[10rem] overflow-y-auto text-center origin-top-left bg-gray-900 divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
+                                       <div class="py-4 -mt-4">
+                                          <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer ">
+                                             <input type="radio" id="channel" name="channel1" value="Aucun" onclick="">
+                                             Aucun
+                                          </label>
+                                          @foreach ($channelNames->original['channelData'] as $channelName)
+                                          <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
+                                             <input type="radio" id="channel3" name="channel3" value="" onclick="">
+                                             {{ $channelName['name'] }}
+                                          </label>
+                                          @endforeach
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+   
+                  <div class="grid grid-cols-2 gap-4 w-full">
+                     <div class="col-span-2 sm:col-span-1 mb-4 sm:mt-0 lg:mt-16">
+                        <div class="ml-4">
+                           <label class="block text-gray-400 font-bold mb-2" for="number">
+                              Message
+                           </label>
+                           <textarea name="message" class="hover:outline-white hover:cursor-pointer h-32 w-full bg-slate-900 text-white outline-none bg-grey-700 rounded-lg pl-4 pr-6 lg:pr-10 leading-relaxed border border-solid transition duration-200 border-grey-700 focus:ring-opacity-30 focus:border-blue-default focus:ring-[4px] focus:ring-blue-default text-grey-500 text-sm py-4"
+                              id="role" placeholder="" value="" rows="1">{{ $message }}</textarea>
+                           <p class="text-sm text-gray-500  max-w-96">Rentrez un message qui sera envoyé lors de l'arrivée d'un utilisateur sur votre serveur discord</p>
+                           <p><a href="#" class="text-gray-500 hover:text-orange-500" onclick="showSlide()">En savoir plus sur les placeholders</a></p>
+                        </div>
+   
+                        <div class=" sm:w-12 xl:w-auto fixed right-0 top-24 items-center justify-center mx-auto">
+                           <div class="hidden" id="slide">
+                              <div class=" mx-auto mt-8 h-screen max-w-[22rem] bg-gray-700 text-white p-6 rounded-lg shadow-md">
+                                 <h1 class="text-2xl font-bold mb-4"> <span class="text-orange-400 font-bold">zPoq</span> | Placeholders</h1>
+                                 <div class="mb-8">
+                                    <h2 class="text-lg font-semibold mb-2">Informations</h2>
+                                    <ul>
+                                       <li class="mb-4">
+                                          <span class="font-semibold text-red-600">[MEMBER.MENTION]</span><br>
+                                          Permet de mentionner le membre !<br>
+                                          <span class="italic text-orange-400">Exemple: @.cauctoflo</span>
+                                       </li>
+                                       <li class="mb-4">
+                                          <span class="font-semibold text-red-600">[MEMBER.NAME]</span><br>
+                                          Permet d'afficher le nom du membre !<br>
+                                          <span class="italic text-orange-400">Exemple: .cauctoflo</span>
+                                       </li>
+                                       <li class="mb-4">
+                                          <span class="font-semibold text-red-600">[DISCORD.NAME]</span><br>
+                                          Permet d'afficher le nom du discord !<br>
+                                          <span class="italic text-orange-400">Exemple: ✨ zPoq | Discord Support</span>
+                                       </li>
+                                       <li class="mb-4">
+                                          <span class="font-semibold text-red-600">[DISCORD.MEMBERSCOUNT]</span><br>
+                                          Permet d'afficher le nombre de membres du discord !<br>
+                                          <span class="italic text-orange-400">Exemple: 21</span>
+                                       </li>
+                                       <li class="mb-4">
+                                          <span class="font-semibold text-red-600">[NL]</span><br>
+                                          Permet de d'aller à la ligne [NL] ou de sauter une ligne [NL][NL] !<br>
+                                          <span class="italic text-orange-400">Exemple: Vous avez été averti !([NL])<br>Par: zPoq([NL][NL])</span>
+                                       </li>
+                                    </ul>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <script>
+                           function showSlide() {
+                             var slide = document.getElementById("slide");
+                             slide.classList.toggle("hidden");
+                           }
+                         </script>
+                     </div>
+                     <div class="hidden">ac</div>
+                  </div>
+   
+                  <div class="flex items-center justify-center mx-auto">
+                     <div class="mb-4 max-w-sm  mt-20 sm:mt-0 flex items-center justify-center">
+                        <button class="bg-green-800 hover:bg-green-700 hover:opacity-90 cursor-pointer transition duration-300 ease-in-out rounded-full w-48 h-8 text-white font-semibold">
+                           <div class="flex gap-2 justify-center items-center">
+                              <span>
+                                 <i class=' text-xl bx bx-cog'></i>
+                              </span>
+                              <span class="text-sm">Sauvegarder</span>
+                           </div>
+                        </button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </form>
+         </div>
 
    </body>
       
