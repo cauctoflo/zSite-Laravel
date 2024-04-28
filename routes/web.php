@@ -167,6 +167,9 @@ use App\Http\Controllers\Discords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\ModuleAccueilController;
+use Illuminate\Database\PDO\SqlServerDriver;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 
 
@@ -254,26 +257,187 @@ Route::get('/guilds/{guildId}/channels', [Discords::class, 'getDiscordChannels']
 Route::get('/guilds/{guildId}/roles', [Discords::class, 'getDiscordRoles']);
 
 
-Route::post('/dashboard/{serverid}/accueil/save', function ($serverid, Illuminate\Http\Request $request) {
-    $data = $request->except('_token');
-    foreach ($data as $key => $value) {
-        if (empty($value)) {
-        return "vide";
-        break;
-        } else {
-            echo "Key: " . $key . ", Value: " . $value . "<br>";
-        }
-        
+
+
+// Route::post('/dashboard/{serverid}/accueil/save', function ($serverid, Illuminate\Http\Request $request) {
+//     // Récupérer les données pour le module 'Bvn' et l'ID de serveur spécifié
+//     $accueilData = \App\Models\ModuleAccueil::where([
+//         ['module', '=', 'Bvn'],
+//         ['id', '=', $serverid]
+//     ])->first();
+
+//     // Si aucune donnée n'est trouvée pour le module 'Bvn' et l'ID de serveur spécifié, retourner une erreur
+//     if (!$accueilData) {
+//         return response()->json(['error' => 'Aucune donnée trouvée pour l\'ID de serveur et le module donnés'], 404);
+//     }
+
+//     // Valider le champ de message
+//     $data = $request->except('_token');
+//     if (empty($data['message'])) {
+//         return response()->json(['error' => 'Le champ message ne peut pas être vide'], 400);
+//     }
+
+//     // Mettre à jour les données uniquement si le module est 'Bvn'
+//     $accueilData->toggle = !empty($data['message']);
+//     $accueilData->type = "Message";
+//     $accueilData->message = $data['message'];
+//     $accueilData->channel = $data['channel1'];
+//     $accueilData->role = $data['role'];
+//     $accueilData->log = $data['channel3'];
+
+//     $accueilData->save();
+
+//     return response()->json([
+//         'updatedData' => $accueilData
+//     ]);
+// });
+
+
+
+Route::post('/dashboard/{serverid}/accueil/Bvn/save', function ($serverid, Illuminate\Http\Request $request) { 
+    $data = \App\Models\ModuleAccueil::where('module', 'Bvn')->where('id', $serverid)->first();
+    $aurData = \App\Models\ModuleAccueil::where('module', 'Aur')->where('id', $serverid)->get();
+    $bmpData = \App\Models\ModuleAccueil::where('module', 'BMP')->where('id', $serverid)->get();
+
+    if ($data) {
+        $data->delete();
     }
-    
-    // Check if any value is empty
-    if (empty($data)) {
-        return "vide";
+
+    // Recrée les données pour les modules Aur et BMP avec les données sauvegardées
+    foreach ($aurData as $data) {
+        $aurModule = new \App\Models\ModuleAccueil();
+        $aurModule->module = 'Aur';
+        $aurModule->id = $data->id;
+        $aurModule->toggle = $data->toggle;
+        $aurModule->type = $data->type;
+        $aurModule->message = $data->message;
+        $aurModule->channel = $data->channel;
+        $aurModule->role = $data->role;
+        $aurModule->log = $data->log;
+        $aurModule->save();
     }
-    
-    // Process the data here
+
+    foreach ($bmpData as $data) {
+        $bmpModule = new \App\Models\ModuleAccueil();
+        $bmpModule->module = 'BMP';
+        $bmpModule->id = $data->id;
+        $bmpModule->toggle = $data->toggle;
+        $bmpModule->type = $data->type;
+        $bmpModule->message = $data->message;
+        $bmpModule->channel = $data->channel;
+        $bmpModule->role = $data->role;
+        $bmpModule->log = $data->log;
+        $bmpModule->save();
+    }
+
+
+    $accueilData = new \App\Models\ModuleAccueil();
+    $accueilData->module = 'Bvn';
+    $accueilData->id = $serverid;
+    $accueilData->toggle = !empty($request->input('message'));
+    $accueilData->type = "Message";
+    $accueilData->message = $request->input('message');
+    $accueilData->channel = $request->input('channel1');
+    $accueilData->role = $request->input('role');
+    $accueilData->log = $request->input('channel3');
+    $accueilData->save();
+    echo response()->json([
+        'updatedData' => $accueilData
+    ]);
+    return redirect('/dashboard/' . $serverid);
+});
+
+Route::post('/dashboard/{serverid}/accueil/Aur/save', function ($serverid, Illuminate\Http\Request $request) { 
+    $data = \App\Models\ModuleAccueil::where('module', 'Aur')->where('id', $serverid)->first();
+    $aurData = \App\Models\ModuleAccueil::where('module', 'Bvn')->where('id', $serverid)->get();
+    $bmpData = \App\Models\ModuleAccueil::where('module', 'BMP')->where('id', $serverid)->get();
+
+    if ($data) {
+        $data->delete();
+    }
+
+    // Recrée les données pour les modules Aur et BMP avec les données sauvegardées
+    foreach ($aurData as $data) {
+        $aurModule = new \App\Models\ModuleAccueil();
+        $aurModule->module = 'Bvn';
+        $aurModule->id = $data->id;
+        $aurModule->toggle = $data->toggle;
+        $aurModule->type = $data->type;
+        $aurModule->message = $data->message;
+        $aurModule->channel = $data->channel;
+        $aurModule->role = $data->role;
+        $aurModule->log = $data->log;
+        $aurModule->save();
+    }
+
+    foreach ($bmpData as $data) {
+        $bmpModule = new \App\Models\ModuleAccueil();
+        $bmpModule->module = 'BMP';
+        $bmpModule->id = $data->id;
+        $bmpModule->toggle = $data->toggle;
+        $bmpModule->type = $data->type;
+        $bmpModule->message = $data->message;
+        $bmpModule->channel = $data->channel;
+        $bmpModule->role = $data->role;
+        $bmpModule->log = $data->log;
+        $bmpModule->save();
+    }
+
+
+    $accueilData = new \App\Models\ModuleAccueil();
+    $accueilData->module = 'Bvn';
+    $accueilData->id = $serverid;
+    $accueilData->toggle = !empty($request->input('message'));
+    $accueilData->type = "Message";
+    $accueilData->message = $request->input('message');
+    $accueilData->channel = $request->input('channel1');
+    $accueilData->role = $request->input('role');
+    $accueilData->log = $request->input('channel3');
+    $accueilData->save();
+    echo response()->json([
+        'updatedData' => $accueilData
+    ]);
+    return redirect('/dashboard/' . $serverid);
 });
 
 
-// /guilds/785935439633973318/channels
-// /guilds/785935439633973318/roles
+
+// Route::post('/dashboard/{serverid}/accueil/save', function ($serverid, Illuminate\Http\Request $request) {
+//     $data2 = $request->except('_token');
+//     $accueilData = \App\Models\ModuleAccueil::where('module', 'Bvn')->where('id', $serverid)->first();
+//     if ($accueilData) {
+//         $accueilData->toggle = !empty($data2['message']);
+//         $accueilData->type = "Message";
+//         $accueilData->message = $data2['message'];
+//         $accueilData->channel = $data2['channel1'];
+//         $accueilData->role = $data2['role'];
+//         $accueilData->log = $data2['channel3'];
+//         $accueilData->save();
+//     }
+// });
+
+
+
+Route::get('/dashboard/{serverid}/accueil/data', function ($serverid) {
+    $moduleAccueil = \App\Models\ModuleAccueil::all();
+    $data = \App\Models\ModuleAccueil::where('id', $serverid)->where('module', 'Bvn')->get();
+    if ($data->isNotEmpty()) {
+        return response()->json(["allData" => $moduleAccueil->where('id', $serverid), "filteredData" => $data]);
+    } else {
+        return response()->json(['message' => 'No data found for the given server ID and module']);
+    }
+});
+
+use App\Models\BotDashboard;
+Route::get('/create-table', function () {
+
+
+    $moduleAccueil = new BotDashboard();
+    $moduleAccueil->tag = 'Accueil';
+    $moduleAccueil->premium = false;
+    $moduleAccueil->title = 'Module Accueil';
+    $moduleAccueil->description = 'Bienvenue sur notre site !';
+    $moduleAccueil->afficher = true;
+    $moduleAccueil->save();
+    
+});
