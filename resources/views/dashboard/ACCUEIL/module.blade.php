@@ -1,4 +1,6 @@
 @php
+
+
    $url = request()->url();
    $serverid = explode('/', $url)[4];
 
@@ -43,13 +45,7 @@
       }
    }
 
-        /**
-     * Récupère les rôles Discord d'une guilde spécifique.
-     *
-     * @param string $guildId L'identifiant de la guilde.
-     * @return \Illuminate\Http\JsonResponse La liste des noms des rôles.
-     */
-     function getDiscordRoles($guildId)
+   function getDiscordRoles($guildId)
     {
         try {
             $response = Http::withHeaders([
@@ -67,35 +63,58 @@
     }
 
    /**
- /**
- * Get the ID of a specific Discord role.
+    * Get the ID of a specific Discord role.
+    *
+    * @param string $guildId The guild ID
+    * @param string $roleName The role name 
+    * @return int|null The role ID, or null if not found
+    */
+    function getDiscordRoleId($guildId, $roleName) {
+
+        $roles = getDiscordRoles($guildId)->original['roleNames'] ?? [];
+
+        foreach ($roles as $role) {
+            if ($role === $roleName) {
+            
+            $response = Http::withHeaders([
+                'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'), 
+            ])->timeout(30)->get("https://discord.com/api/v10/guilds/{$guildId}/roles");
+
+            $roles = $response->json();
+            
+            return array_column($roles, 'id', 'name')[$roleName]; 
+            }
+        }
+
+        return null;
+
+    }
+   
+
+/**
+ * Get the ID of a specific Discord channel.
  *
  * @param string $guildId The guild ID
- * @param string $roleName The role name 
- * @return int|null The role ID, or null if not found
+ * @param string $channelName The channel name
+ * @return int|null The channel ID, or null if not found
  */
-function getDiscordRoleId($guildId, $roleName) {
+ function getDiscordChannelId($guildId, $channelName)
+{
 
-  $roles = getDiscordRoles($guildId)->original['roleNames'] ?? [];
+    $response = Http::withHeaders([
+    'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN')
+    ])->timeout(30)->get("https://discord.com/api/v10/guilds/$guildId/channels");
 
-  foreach ($roles as $role) {
-    if ($role === $roleName) {
-      
-      $response = Http::withHeaders([
-          'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'), 
-      ])->timeout(30)->get("https://discord.com/api/v10/guilds/{$guildId}/roles");
+    $channels = $response->json();
 
-      $roles = $response->json();
-      
-      return array_column($roles, 'id', 'name')[$roleName]; 
+    foreach ($channels as $channel) {
+        if ($channel['name'] === $channelName) {
+        return $channel['id'];
+        }
     }
-  }
 
-  return null;
-
+return null;
 }
-
-
 
 
 
@@ -106,10 +125,10 @@ function getDiscordRoleId($guildId, $roleName) {
 
    $channelNames = getDiscordChannels($guildId); 
    $RoleName = getDiscordRoles($guildId); 
-   $roleName = 'Zapier';
+   $test = getDiscordChannelId($guildId, 'général');
+   var_dump($test);
 
-   $roleId = getDiscordRoleId($guildId, $roleName);
-   var_dump($roleId);
+
    
 
 

@@ -8,92 +8,6 @@ use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\AlertsController;
 
 
-// /**
-//  * Récupère les canaux Discord d'une guilde spécifique.
-//  *
-//  * @param string $guildId L'identifiant de la guilde.
-//  * @return \Illuminate\Http\JsonResponse La liste des noms des canaux.
-//  */
-// function getDiscordChannels2($guildId)
-// {
-// try {
-// $response = Http::withHeaders([
-// 'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'), // Obtient le jeton du bot Discord à partir du fichier .env
-// ])->timeout(30)->get("https://discord.com/api/v10/guilds/{$guildId}/channels");
-
-// $channels = $response->json();
-
-// $channelNames = array_column($channels, 'name');
-// $Type = array_column($channels, 'type');
-
-// $channelData = [];
-// for ($i = 0; $i < count($channelNames); $i++) {
-// if ($Type[$i] != 4 && $Type[$i] != 2) {
-// $channelData[] = [
-// 'name' => $channelNames[$i],
-// 'type' => $Type[$i]
-// ];
-// }
-// }
-
-// return response()->json(['channelData' => $channelData]);
-// } catch (\Exception $e) {
-// return response()->json(['error' => $e->getMessage()], 500);
-// }
-// }
-
-// /**
-//  * Récupère les rôles Discord d'une guilde spécifique.
-//  *
-//  * @param string $guildId L'identifiant de la guilde.
-//  * @return \Illuminate\Http\JsonResponse La liste des noms des rôles.
-//  */
-// function getDiscordRoles($guildId)
-// {
-// try {
-// $response = Http::withHeaders([
-// 'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'), // Obtient le jeton du bot Discord à partir du fichier .env
-// ])->timeout(30)->get("https://discord.com/api/v10/guilds/{$guildId}/roles");
-
-// $roles = $response->json();
-
-// $roleNames = array_column($roles, 'name');
-
-// return response()->json(['roleNames' => $roleNames]);
-// } catch (\Exception $e) {
-// return response()->json(['error' => $e->getMessage()], 500);
-// }
-// }
-
-// /**
-//   /**
-//  * Get the ID of a specific Discord role.
-//  *
-//  * @param string $guildId The guild ID
-//  * @param string $roleName The role name 
-//  * @return int|null The role ID, or null if not found
-//  */
-// function getDiscordRoleId($guildId, $roleName)
-// {
-
-// $roles = getDiscordRoles($guildId)->original['roleNames'] ?? [];
-
-// foreach ($roles as $role) {
-// if ($role === $roleName) {
-
-// $response = Http::withHeaders([
-// 'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'),
-// ])->timeout(30)->get("https://discord.com/api/v10/guilds/{$guildId}/roles");
-
-// $roles = $response->json();
-
-// return array_column($roles, 'id', 'name')[$roleName];
-// }
-// }
-
-// return null;
-// }
-
 
 /*
 |--------------------------------------------------------------------------
@@ -252,6 +166,7 @@ Route::get('/discord/callback', [DiscordController::class, 'handleCallback']);
 
 
 
+
 use App\Http\Controllers\Discords;
 
 use Illuminate\Http\Request;
@@ -384,6 +299,8 @@ Route::get('/guilds/{guildId}/roles', [Discords::class, 'getDiscordRoles']);
 
 
 
+
+
 Route::post('/dashboard/{serverid}/accueil/Bvn/save', function ($serverid, Illuminate\Http\Request $request) { 
     $data = \App\Models\ModuleAccueil::where('module', 'Bvn')->where('id', $serverid)->first();
     $aurData = \App\Models\ModuleAccueil::where('module', 'Aur')->where('id', $serverid)->get();
@@ -392,8 +309,6 @@ Route::post('/dashboard/{serverid}/accueil/Bvn/save', function ($serverid, Illum
     if ($data) {
         $data->delete();
     }
-
-
 
     // Recrée les données pour les modules Aur et BMP avec les données sauvegardées
     foreach ($aurData as $data) {
@@ -422,21 +337,39 @@ Route::post('/dashboard/{serverid}/accueil/Bvn/save', function ($serverid, Illum
         $bmpModule->save();
     }
 
-
     $accueilData = new \App\Models\ModuleAccueil();
     $accueilData->module = 'Bvn';
     $accueilData->id = $serverid;
-    $accueilData->toggle = !empty($request->input('message'));
     $accueilData->type = "Message";
-    $accueilData->message = $request->input('message');
-    $accueilData->channel = $request->input('channel1')?? "-";
+
+    if (empty($request->input('message'))) {
+        $accueilData->message = "-";
+        $accueilData->toggle = 0;
+
+    } else {
+        $accueilData->message = $request->input('message');
+        $accueilData->toggle = !empty($request->input('message'));
+    }    
+
+    $channelName = $request->input('channel1');
+    $discordController = new \App\Http\Controllers\DiscordController();
+    $channelid = $discordController->getDiscordChannelId($serverid, $channelName);
+
+    $accueilData->channel = $channelid ?? "-";
 
     $roleName = $request->input('role');
-    $roleId = getDiscordRoleId($serverid, $roleName);
+    $discordController = new \App\Http\Controllers\DiscordController();
+    $roleId = $discordController->getDiscordRoleId($serverid, $roleName);
 
     $accueilData->role = $roleId ?? "-";
-    $accueilData->log = $request->input('channel3') ?? "-";
+    
+    $channelName = $request->input('channel3');
+    $discordController = new \App\Http\Controllers\DiscordController();
+    $channelid = $discordController->getDiscordChannelId($serverid, $channelName);
+
+    $accueilData->log = $channelid ;
     $accueilData->save();
+
     echo response()->json([
         'updatedData' => $accueilData
     ]);
@@ -445,8 +378,11 @@ Route::post('/dashboard/{serverid}/accueil/Bvn/save', function ($serverid, Illum
 
 Route::post('/dashboard/{serverid}/accueil/Aur/save', function ($serverid, Illuminate\Http\Request $request) { 
     $data = \App\Models\ModuleAccueil::where('module', 'Aur')->where('id', $serverid)->first();
+
     $aurData = \App\Models\ModuleAccueil::where('module', 'Bvn')->where('id', $serverid)->get();
     $bmpData = \App\Models\ModuleAccueil::where('module', 'BMP')->where('id', $serverid)->get();
+
+
 
     if ($data) {
         $data->delete();
@@ -485,13 +421,33 @@ Route::post('/dashboard/{serverid}/accueil/Aur/save', function ($serverid, Illum
     $accueilData->id = $serverid;
     $accueilData->toggle = !empty($request->input('message'));
     $accueilData->type = "Message";
-    $accueilData->message = $request->input('message');
-    $accueilData->channel = $request->input('channel1')?? "-";
+    if (empty($request->input('message'))) {
+        $accueilData->message = "-";
+        $accueilData->toggle = 0;
+
+    } else {
+        $accueilData->message = $request->input('message');
+        $accueilData->toggle = !empty($request->input('message'));
+    }   
+
+    $channelName = $request->input('channel1');
+    $discordController = new \App\Http\Controllers\DiscordController();
+    $channelid = $discordController->getDiscordChannelId($serverid, $channelName);
+
+    $accueilData->channel = $channelid ?? "-";
+
     $roleName = $request->input('role');
-    $roleId = getDiscordRoleId($serverid, $roleName);
+    $discordController = new \App\Http\Controllers\DiscordController();
+    $roleId = $discordController->getDiscordRoleId($serverid, $roleName);
 
     $accueilData->role = $roleId ?? "-";
-    $accueilData->log = $request->input('channel3') ?? "-";
+    
+    $channelName = $request->input('channel3');
+    $discordController = new \App\Http\Controllers\DiscordController();
+    $channelid = $discordController->getDiscordChannelId($serverid, $channelName);
+
+    $accueilData->log = $channelid ;
+    $accueilData->save();
     $accueilData->save();
     echo response()->json([
         'updatedData' => $accueilData
@@ -510,7 +466,7 @@ Route::post('/dashboard/{serverid}/accueil/BMP/save', function ($serverid, Illum
     // Recrée les données pour les modules Aur et BMP avec les données sauvegardées
     foreach ($aurData as $data) {
         $aurModule = new \App\Models\ModuleAccueil();
-        $aurModule->module = 'Aur';
+        $aurModule->module = 'Bvn';
         $aurModule->id = $data->id;
         $aurModule->toggle = $data->toggle;
         $aurModule->type = $data->type;
@@ -523,7 +479,7 @@ Route::post('/dashboard/{serverid}/accueil/BMP/save', function ($serverid, Illum
 
     foreach ($bmpData as $data) {
         $bmpModule = new \App\Models\ModuleAccueil();
-        $bmpModule->module = 'Bvn';
+        $bmpModule->module = 'Aur';
         $bmpModule->id = $data->id;
         $bmpModule->toggle = $data->toggle;
         $bmpModule->type = $data->type;
@@ -540,13 +496,33 @@ Route::post('/dashboard/{serverid}/accueil/BMP/save', function ($serverid, Illum
     $accueilData->id = $serverid;
     $accueilData->toggle = !empty($request->input('message'));
     $accueilData->type = "Message";
-    $accueilData->message = $request->input('message');
-    $accueilData->channel = $request->input('channel1')?? "-";
+    if (empty($request->input('message'))) {
+        $accueilData->message = "-";
+        $accueilData->toggle = 0;
+
+    } else {
+        $accueilData->message = $request->input('message');
+        $accueilData->toggle = !empty($request->input('message'));
+    }   
+
+    $channelName = $request->input('channel1');
+    $discordController = new \App\Http\Controllers\DiscordController();
+    $channelid = $discordController->getDiscordChannelId($serverid, $channelName);
+
+    $accueilData->channel = $channelid ?? "-";
+
     $roleName = $request->input('role');
-    $roleId = getDiscordRoleId($serverid, $roleName);
+    $discordController = new \App\Http\Controllers\DiscordController();
+    $roleId = $discordController->getDiscordRoleId($serverid, $roleName);
 
     $accueilData->role = $roleId ?? "-";
-    $accueilData->log = $request->input('channel3') ?? "-";
+    
+    $channelName = $request->input('channel3');
+    $discordController = new \App\Http\Controllers\DiscordController();
+    $channelid = $discordController->getDiscordChannelId($serverid, $channelName);
+
+    $accueilData->log = $channelid ;
+    $accueilData->save();
     $accueilData->save();
     echo response()->json([
         'updatedData' => $accueilData
@@ -583,6 +559,7 @@ Route::get('/dashboard/{serverid}/accueil/data', function ($serverid) {
 });
 
 use App\Models\BotDashboard;
+
 Route::get('/create-table', function () {
 
 
