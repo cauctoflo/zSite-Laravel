@@ -20,9 +20,20 @@ foreach($userGuilds as $guild) {
 ?>
 
 
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!--Nav-->
+    <title>{{ $title ?? 'zPoq | Dashboard' }}</title>
+    <link rel="icon" href="{{ asset('img/logo_sans.png') }}">
 
+
+
+</head>
+<body>
+  
     
     <div class="bg-white">
         <!--Hero-->
@@ -32,7 +43,7 @@ foreach($userGuilds as $guild) {
          <div class="w-full flex-1 overflow-y-auto no-scrollbar h-full">
             <div class="p-5 ">
                <header class=" fixed pt-4 bg-gray-900 w-11/12 mt-12 pb-4  z-10 flex items-center justify-center gap-5 p-1">
-                  <a href="zpoq.fr">
+                  <a href="/">
                      <div class="_logo_hnnn1_1 _classic_hnnn1_18">
                         <img src="{{ asset('img/logo_sans.png') }}" class="h-20 logo mr-2" alt="Logo">
                         

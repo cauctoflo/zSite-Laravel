@@ -1,6 +1,20 @@
 {{-- text-amber-600 0 hover:text-amber-800 --}}
 
-<div class="fixed z-50 w-full">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{ $title ?? 'zPoq | Dashboard' }}</title>
+    <link rel="icon" href="{{ asset('img/logo_sans.png') }}">
+
+
+
+</head>
+<body>
+
+<div class="fixed  z-50 w-full">
 <header class=" sm:flex-nowrap  w-full border-b text-sm py-2.5 sm:py-4 bg-gray-900 border-gray-700 ">
     <nav class="max-w-7xl flex items-center justify-center mx-auto px-4 sm:px-6 lg:px-8" aria-label="Global">
         <img src="{{ asset('img/logo_sans.png') }}" class="h-10 logo mr-2" alt="Logo">
