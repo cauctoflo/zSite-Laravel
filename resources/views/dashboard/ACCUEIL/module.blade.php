@@ -6,7 +6,9 @@
 
 
    $module = new App\Models\ModuleAccueil();
-   $botDashboard = $module->get();
+   $botDashboard = $module->get();   
+   
+
 
    $guildId = $serverid; // Assuming $serverid contains the guild ID
 
@@ -125,41 +127,62 @@ return null;
 
    $channelNames = getDiscordChannels($guildId); 
    $RoleName = getDiscordRoles($guildId); 
-   $test = getDiscordChannelId($guildId, 'général');
-   var_dump($test);
+
 
 
    
 
 
-   // var_dump($botDashboard);
-   // foreach ($botDashboard as $discords) {
-   //    if ($discords->id == $serverid) {
-   //        if ($discords->module == 'Bvn') {
-   //          echo '<br> Bvn';
-   //          echo $discords->message;
-   //          echo $discords->channel;
-   //          echo $discords->type;
-   //          echo $discords->toggle;
-   //        } elseif ($discords->module == 'BMP') {
-   //          echo '<br> BMP';
-   //          echo $discords->message;
-   //          echo $discords->channel;
-   //          echo $discords->type;
-   //          echo $discords->toggle;
-            
-   //        } elseif ($discords->module == 'Aur') {
-   //          echo '<br> Aur';
+// var_dump($botDashboard);
+$bvnMessage = '';
+      $bvnChannel = '';
+      $bvnType = '';
+      $bvnToggle = '';
+      $bvnRole = '';
+      $bvnLog = '';
+      $bmpMessage = '';
+      $bmpChannel = '';
+      $bmpType = '';
+      $bmpToggle = '';
+      $bmpRole = '';
+      $bmpLog = '';
+      $aurMessage = '';
+      $aurChannel = '';
+      $aurType = '';
+      $aurToggle = '';
+      $aurRole = '';
+      $aurLog = '';
 
-   //          echo $discords->message;
-   //          echo $discords->channel;
-   //          echo $discords->type;
-   //          echo $discords->toggle;
+      foreach ($botDashboard as $discords) {
+         if ($discords->id == $serverid) {
+             if ($discords->module == 'Bvn') {
+               $channel = getDiscordChannels($serverid, $discords->channel);
+               foreach ($channelNames->original['channelData'] as $channelName) {
+                  $bvnMessage = $channelName['name'];
+               }
 
-   //        }
-   //    }
-   // }
-   $message ="";
+               $bvnType = $discords->type;
+               $bvnToggle = $discords->toggle;
+               $bvnLog = $discords->log;
+               $bvnRole = $discords->role;
+             } elseif ($discords->module == 'BMP') {
+               $bmpMessage = $discords->message;
+               $bmpChannel = $discords->channel;
+               $bmpType = $discords->type;
+               $bmpToggle = $discords->toggle;
+               $bmpLog = $discords->log;
+               $bmpRole = $discords->role;
+             } elseif ($discords->module == 'Aur') {
+               $aurMessage = $discords->message;
+               $aurChannel = $discords->channel;
+               $aurType = $discords->type;
+               $aurToggle = $discords->toggle;
+               $aurLog = $discords->log;
+               $aurRole = $discords->role;
+             }
+         }
+      }
+      $message ="";
 
 @endphp
 <!DOCTYPE html>
@@ -171,7 +194,8 @@ return null;
       <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'
          rel='stylesheet'>
       <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-      <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+      <link rel="stylesheet" href="{{ secure_asset(mix('css/app.css')) }}">
+
       @vite(['resources/css/app.css', 'resources/js/app.js']) 
       <style>
          .logo {
@@ -224,13 +248,13 @@ return null;
                         <label class="block text-gray-400 font-bold mb-2" for="number">
                            Channel
                         </label>
-                        <p class="text-red-500 text-xs italic mt-2">Role ID incorect</p>
+                         {{-- <p class="text-red-500 text-xs italic mt-2">Role ID incorect</p> --}}
 
                         <div class="relative inline-block text-left ">
                            <div class="group">
                               <button type="button"
                                  class="inline-flex justify-center items-center w-[17rem] rounded-xl px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
-                                 Choisir un Channel
+                                  {{ $bvnChannel }}
                                  <!-- Dropdown arrow -->
                                  <svg class="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
@@ -242,7 +266,7 @@ return null;
                                  class="absolute left-0 w-[17rem] max-h-[10rem] overflow-y-auto text-center  origin-top-left bg-gray-900 divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
                                  <div class="py-4 -mt-4">
                                     <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer ">
-                                       <input type="radio" id="channel" name="channel1" value="Aucun" onclick="">
+                                       <input type="radio" id="channel" name="channel1" value="" onclick="">
                                        Aucun
                                     </label>
                                     @foreach ($channelNames->original['channelData'] as $channelName)
@@ -263,13 +287,13 @@ return null;
                         <label class="block text-gray-400 font-bold mb-2" for="number">
                            Rôle
                         </label>
-                        <p class="text-red-500 text-xs italic mt-2">Role ID incorect</p>
+                         {{-- <p class="text-red-500 text-xs italic mt-2">Role ID incorect</p> --}}
 
                         <div class="relative inline-block text-left ">
                            <div class="group">
                               <button type="button"
                                  class="inline-flex justify-center items-center w-[17rem] rounded-xl px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
-                                 Choisir un Channel
+                                 {{ $bvnRole }}
                                  <!-- Dropdown arrow -->
                                  <svg class="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
@@ -281,7 +305,7 @@ return null;
                                  class="absolute left-0 w-[17rem] max-h-[10rem] overflow-y-auto text-center  origin-top-left bg-gray-900 divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
                                  <div class="py-4 -mt-4">
                                     <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer ">
-                                       <input type="radio" id="channel" name="channel1" value="Aucun" onclick="">
+                                       <input type="radio" id="channel" name="role" value="" onclick="">
                                        Aucun
                                     </label>
                                     @foreach ($RoleName->original['roleNames'] as $channelName)
@@ -302,12 +326,12 @@ return null;
                         <label class="block text-gray-400 font-bold mb-2" for="number">
                            Channel Log
                         </label>
-                        <p class="text-red-500 text-xs italic mt-2">Channel incorect/p>
+                         {{-- <p class="text-red-500 text-xs italic mt-2">Role ID incorect</p> --}}
 
                            <div class="relative inline-block text-left ">
                               <div class="group">
                                  <label for="channel" class="inline-flex justify-center items-center w-[17rem] rounded-xl px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700 cursor-pointer">
-                                    Choisir un Channel
+                                    {{ $bvnLog }}
                                     <!-- Dropdown arrow -->
                                     <svg class="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                        <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
@@ -318,7 +342,7 @@ return null;
                                  <div class="absolute left-0 w-[17rem] max-h-[10rem] overflow-y-auto text-center origin-top-left bg-gray-900 divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
                                     <div class="py-4 -mt-4">
                                        <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer ">
-                                          <input type="radio" id="channel" name="channel1" value="Aucun" onclick="">
+                                          <input type="radio" id="channel" name="channel3" value="" onclick="">
                                           Aucun
                                        </label>
                                        @foreach ($channelNames->original['channelData'] as $channelName)
@@ -343,7 +367,7 @@ return null;
                            Message
                         </label>
                         <textarea name="message" class="hover:outline-white hover:cursor-pointer h-32 w-full bg-slate-900 text-white outline-none bg-grey-700 rounded-lg pl-4 pr-6 lg:pr-10 leading-relaxed border border-solid transition duration-200 border-grey-700 focus:ring-opacity-30 focus:border-blue-default focus:ring-[4px] focus:ring-blue-default text-grey-500 text-sm py-4"
-                           id="role" placeholder="" value="" rows="1">{{ $message }}</textarea>
+                           id="role" placeholder="" value="" rows="1">{{ $bvnMessage }}</textarea>
                         <p class="text-sm text-gray-500  max-w-96">Rentrez un message qui sera envoyé lors de l'arrivée d'un utilisateur sur votre serveur discord</p>
                         <p><a href="#" class="text-gray-500 hover:text-orange-500" onclick="showSlide()">En savoir plus sur les placeholders</a></p>
                      </div>
@@ -435,7 +459,7 @@ return null;
                            <label class="block text-gray-400 font-bold mb-2" for="number">
                               Channel
                            </label>
-                           <p class="text-red-500 text-xs italic mt-2">Role ID incorect</p>
+                            {{-- <p class="text-red-500 text-xs italic mt-2">Role ID incorect</p> --}}
    
                            <div class="relative inline-block text-left ">
                               <div class="group">
@@ -648,7 +672,7 @@ return null;
                            <label class="block text-gray-400 font-bold mb-2" for="number">
                               Channel
                            </label>
-                           <p class="text-red-500 text-xs italic mt-2">Role ID incorect</p>
+                            {{-- <p class="text-red-500 text-xs italic mt-2">Role ID incorect</p> --}}
    
                            <div class="relative inline-block text-left ">
                               <div class="group">

@@ -22,7 +22,6 @@ use App\Http\Controllers\AlertsController;
 
 
 
-
 Route::get('/', function () {
     return view('maintenance');
 });
