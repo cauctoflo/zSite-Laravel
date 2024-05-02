@@ -9,7 +9,6 @@
          rel='stylesheet'>
       <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
       <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-      @vite(['resources/css/app.css', 'resources/js/app.js']) 
       <style>
          .logo {
          filter: drop-shadow(0px 0 10px orange);
