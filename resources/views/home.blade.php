@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,16 +24,25 @@
 </head>
 
 <body class="bg-gray-900">
+
+
+
     @include('layout')
-    
+
     <div
-        class="w-full pt-10 dark:bg-gray-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+        class="w-full pt-10 bg-gray-900 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+
         <div class="max-w-[85rem] px-4 sm:px-6 lg:px-8 mx-auto">
             <div class="grid mt-32 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"> 
-                <?php
+
+<?php
+
                 $userGuilds = json_decode(session('userGuilds'), true);
                 $userUncomondGuilds = session('userUncomondGuilds');
-                
+
+
+
+
 
                 foreach($userGuilds as $guild) {
                     $serverid = $guild['id'];
@@ -80,12 +91,25 @@
                 ?>
                 
 
+    
                  </div>
 
                 
-
+            <div class="mt-10">
+            <a href="{{ env('DISCORD_GUILD_INVITE') }}" class=" hover:text-red-700 text-red-500 border-2 border-red-900 py-2 px-6 gap-2 rounded inline-flex items-center">
+                <span>
+                    Forcer le raffraichissement
+                </span>
+                <svg class="w-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    viewBox="0 0 24 24" class="w-6 h-6 ml-2">
+                    <path d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+            </a>
         </div>
+        </div>
+        
     </div>
+
 </body>
 
 </html>

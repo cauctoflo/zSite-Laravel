@@ -29,6 +29,9 @@ Route::get('/', function () {
 Route::get('/discord', function () {
     return redirect('https://discord.gg/gQx7ht97VK');
 });
+Route::get('/login', function () {
+    return redirect('https://discord.com/oauth2/authorize?client_id=1117699457778192414&response_type=code&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Ftests&scope=identify+guilds');
+})->name('login');
 
 
 // Route::post('/maintenance/endpoint', function (Illuminate\Http\Request $request) {
@@ -147,24 +150,10 @@ Route::get('/alerts/{status}/{classe}/{type}', function ($status, $classe, $type
 
 
 
-Route::get('/home/dashboard', function () {
-    return view('dashboard.index');
-});
-Route::get('/t', function () {
-    return view('home');
-});
+
 
 
 use App\Http\Controllers\DiscordController;
-
-Route::get('/discord/callback', [DiscordController::class, 'handleCallback']);
-
-//Route::get('/discord', function (Illuminate\Http\Request $request) {
-//    return view('home')->with('request', $request);
-//});
-// Route::get('/dashboard/{server.id}/', function (Illuminate\Http\Request $request) {
-//     return view('dashboard.index')->with('request', $request);
-// });
 
 
 
@@ -202,21 +191,9 @@ Route::get('/tests', [Discords::class, 'Index']);
 
 
 
-Route::get('/user', function (Illuminate\Http\Request $request) {
-    $userGuilds = $request->session()->get('userGuilds');
-    
-    $userInfo = json_decode($userGuilds, true);
-    $names = array_column($userInfo, 'name');
-    
-    echo $request->session()->put('userInfo', $names);
-    return response()->json(['userInfo' => $request->session()->get('userInfo')]);
-});
 
 
-Route::get('/dashboard/{serverid}/BVN/Save', function ($serverid) {
-        return view('dashboard.Accueil.save')->with(['serverid' => $serverid]);
 
-});
 
 Route::get('/error/perm', function () {
     return view('Perm');
@@ -232,7 +209,19 @@ Route::fallback(function () {
 // ROUTE DASHBOARD
 
 Route::get('/dashboard', function () {
-    return view('home');
+    
+
+    $userGuilds = json_decode(session('userGuilds'), true);
+    $userUncomondGuilds = session('userUncomondGuilds');
+
+
+
+    if ($userGuilds == null) {
+        return redirect('https://discord.com/oauth2/authorize?client_id=1117699457778192414&response_type=code&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Ftests&scope=identify+guilds');
+
+    } else {
+        return view('home');
+    }
 });
 Route::get('/dashboard/{serverid}', function ($serverid) {
     return view('dashboard.index')->with('request', $serverid);
@@ -574,3 +563,4 @@ Route::get('/create-table', function () {
     $moduleAccueil->save();
     
 });
+
