@@ -2,11 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use Spatie\DiscordAlerts\Facades\DiscordAlert;
-// Remove the duplicate import statement for 'Http'
 use Illuminate\Support\Facades\Http; 
-
 use App\Http\Controllers\AlertsController;
-
+use App\Http\Controllers\DiscordController;
+use App\Http\Controllers\Discords;
+use Illuminate\Http\Request;
+use App\Http\Controllers\ModuleAccueilController;
+use Illuminate\Database\PDO\SqlServerDriver;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 
 /*
@@ -22,15 +26,20 @@ use App\Http\Controllers\AlertsController;
 
 
 
+
 Route::get('/', function () {
     return view('maintenance');
 });
+
+
+
+
 
 Route::get('/discord', function () {
     return redirect('https://discord.gg/gQx7ht97VK');
 });
 Route::get('/login', function () {
-    return redirect('https://discord.com/oauth2/authorize?client_id=1117699457778192414&response_type=code&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Ftests&scope=identify+guilds');
+    return redirect(env('DISCORD_GUILD_INVITE'));
 })->name('login');
 
 
@@ -153,19 +162,7 @@ Route::get('/alerts/{status}/{classe}/{type}', function ($status, $classe, $type
 
 
 
-use App\Http\Controllers\DiscordController;
 
-
-
-
-use App\Http\Controllers\Discords;
-
-use Illuminate\Http\Request;
-
-use App\Http\Controllers\ModuleAccueilController;
-use Illuminate\Database\PDO\SqlServerDriver;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 
 
 
@@ -217,7 +214,7 @@ Route::get('/dashboard', function () {
 
 
     if ($userGuilds == null) {
-        return redirect('https://discord.com/oauth2/authorize?client_id=1117699457778192414&response_type=code&redirect_uri=http%3A%2F%2F127.0.0.1%3A8000%2Ftests&scope=identify+guilds');
+        return redirect(env('DISCORD_GUILD_INVITE'));
 
     } else {
         return view('home');
