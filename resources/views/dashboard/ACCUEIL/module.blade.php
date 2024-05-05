@@ -29,13 +29,15 @@
          
          $channelNames = array_column($channels, 'name');
          $Type = array_column($channels, 'type');
+         $Id = array_column($channels, 'id');
 
          $channelData = [];
          for ($i = 0; $i < count($channelNames); $i++) {
-            if ($Type[$i] != 4 && $Type[$i] != 2) {
+            if ($Type[$i] == 0) { // Check si le type du canal est un texte
                $channelData[] = [
                  'name' => $channelNames[$i],
-                 'type' => $Type[$i]
+                 'type' => $Type[$i],
+                 'id' => $Id[$i]
                ];
             }
          }
@@ -63,6 +65,28 @@
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+
+function getDiscordRoleName($guildId, $roleId)
+{
+   try {
+      $response = Http::withHeaders([
+         'Authorization' => 'Bot ' . env('DISCORD_BOT_TOKEN'),
+      ])->timeout(30)->get("https://discord.com/api/v10/guilds/{$guildId}/roles");
+
+      $roles = $response->json();
+
+      foreach ($roles as $role) {
+         if ($role['id'] === $roleId) {
+            return $role['name'];
+         }
+      }
+
+      return null;
+   } catch (\Exception $e) {
+      return response()->json(['error' => $e->getMessage()], 500);
+   }
+}
 
    /**
     * Get the ID of a specific Discord role.
@@ -156,29 +180,70 @@ $bvnMessage = '';
       foreach ($botDashboard as $discords) {
          if ($discords->id == $serverid) {
              if ($discords->module == 'Bvn') {
-               $channel = getDiscordChannels($serverid, $discords->channel);
-               foreach ($channelNames->original['channelData'] as $channelName) {
-                  $bvnMessage = $channelName['name'];
+               $bvnsChannel = getDiscordChannels($serverid, $discords->channel);
+               $bvnRole = getDiscordRoleName($serverid, $discords->role);
+               
+               foreach ($bvnsChannel->original['channelData'] as $channelName) {
+                  if ($channelName['id'] == $discords->channel) {
+                     $bvnChannel = $channelName['name'];
+                  }
+                  if ($channelName['id'] == $discords->log) {
+                     $bvnLog = $channelName['name'];
+                  }                  
+                  else {
+                     $aurLog = 'Erreur ! Contacté un administrateur';
+                     $aurChannel = 'Erreur ! Contacté un administrateur';
+                  
+                  }
                }
 
+
+
+               $bvnMessage = $discords->message;
                $bvnType = $discords->type;
                $bvnToggle = $discords->toggle;
-               $bvnLog = $discords->log;
-               $bvnRole = $discords->role;
              } elseif ($discords->module == 'BMP') {
+
+               $bmpsChannel = getDiscordChannels($serverid, $discords->channel);
+               $bmpRole = getDiscordRoleName($serverid, $discords->role);
+               
+               foreach ($bmpsChannel->original['channelData'] as $channelName) {
+                  if ($channelName['id'] == $discords->channel) {
+                     $bmpChannel = $channelName['name'];
+                  }
+                  if ($channelName['id'] == $discords->log) {
+                     $bmpLog = $channelName['name'];
+                  }
+                  else {
+                     $aurLog = 'Erreur ! Contacté un administrateur';
+                     $aurChannel = 'Erreur ! Contacté un administrateur';
+                  
+                  }
+               }
+
                $bmpMessage = $discords->message;
-               $bmpChannel = $discords->channel;
                $bmpType = $discords->type;
                $bmpToggle = $discords->toggle;
-               $bmpLog = $discords->log;
-               $bmpRole = $discords->role;
              } elseif ($discords->module == 'Aur') {
+               $aursChannel = getDiscordChannels($serverid, $discords->channel);
+               $aurRole = getDiscordRoleName($serverid, $discords->role);
+
+               foreach ($aursChannel->original['channelData'] as $channelName) {
+                  if ($channelName['id'] == $discords->channel) {
+                     $aurChannel = $channelName['name'];
+                  }
+                  if ($channelName['id'] == $discords->log) {
+                     $aurLog = $channelName['name'];
+                  }
+                  else {
+                     $aurLog = 'Erreur ! Contacté un administrateur';
+                     $aurChannel = 'Erreur ! Contacté un administrateur';
+                  
+                  }
+               }
                $aurMessage = $discords->message;
-               $aurChannel = $discords->channel;
                $aurType = $discords->type;
                $aurToggle = $discords->toggle;
-               $aurLog = $discords->log;
-               $aurRole = $discords->role;
              }
          }
       }
@@ -267,7 +332,12 @@ $bvnMessage = '';
                                        <input type="radio" id="channel" name="channel1" value="" onclick="">
                                        Aucun
                                     </label>
+
+
                                     @foreach ($channelNames->original['channelData'] as $channelName)
+
+
+                                
                                     <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
                                        <input type="radio" id="channel" name="channel1" value="{{ $channelName['name'] }}" onclick="">
                                        {{ $channelName['name'] }}
@@ -463,7 +533,8 @@ $bvnMessage = '';
                               <div class="group">
                                  <button type="button"
                                     class="inline-flex justify-center items-center w-[17rem] rounded-xl px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
-                                    Choisir un Channel
+                                    {{ $aurChannel }}
+
                                     <!-- Dropdown arrow -->
                                     <svg class="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                        <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
@@ -502,7 +573,7 @@ $bvnMessage = '';
                               <div class="group">
                                  <button type="button"
                                     class="inline-flex justify-center items-center w-[17rem] rounded-xl px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
-                                    Choisir un Channel
+                                    {{ $aurLog }}
                                     <!-- Dropdown arrow -->
                                     <svg class="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                        <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
@@ -535,12 +606,11 @@ $bvnMessage = '';
                            <label class="block text-gray-400 font-bold mb-2" for="number">
                               Channel Log
                            </label>
-                           <p class="text-red-500 text-xs italic mt-2">Channel incorect</p>
    
                               <div class="relative inline-block text-left ">
                                  <div class="group">
                                     <label for="channel" class="inline-flex justify-center items-center w-[17rem] rounded-xl px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700 cursor-pointer">
-                                       Choisir un Channel
+                                       {{ $aurLog }}
                                        <!-- Dropdown arrow -->
                                        <svg class="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                           <path fill-rule="evenodd" d="M10 12l-5-5h10l-5 5z" />
@@ -748,7 +818,7 @@ $bvnMessage = '';
                            <label class="block text-gray-400 font-bold mb-2" for="number">
                               Channel Log
                            </label>
-                           <p class="text-red-500 text-xs italic mt-2">Channel incorect</p>
+
    
                               <div class="relative inline-block text-left ">
                                  <div class="group">

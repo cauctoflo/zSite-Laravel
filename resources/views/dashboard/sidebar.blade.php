@@ -218,7 +218,7 @@ foreach($userGuilds as $guild) {
                         </div>
                      </ul>
                   </div>
-                  <div>
+                  {{-- <div>
                      <div class="flex items-center justify-between uppercase text-[10px] text-gray-100 whitespace-nowrap text-ellipsis font-extrabold tracking-widest group cursor-pointer px-3">
                         Server Management
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-gray-300 group-hover:text-gray-100 transition-all duration-200">
@@ -1348,11 +1348,11 @@ foreach($userGuilds as $guild) {
                                  </div>
                               </div>
                            </div>
-                        </div>
+                        </div>--}}
                         </div>
                      </ul>
                   </div>
-               </div>
+               </div> 
             </div>
          </div>
         </div>
