@@ -260,6 +260,8 @@ $bvnMessage = '';
          rel='stylesheet'>
       <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
       @vite(['resources/css/app.css', 'resources/js/app.js']) 
+	  <link rel="stylesheet" href="/app.css">
+
       <style>
          .logo {
             filter: drop-shadow(0px 0 10px orange);
@@ -274,6 +276,9 @@ $bvnMessage = '';
          #toggle:checked ~ .dot {
             transform: translateX(100%);
          }
+
+
+
       </style>
    </head>
    <body class="bg-gray-900">

@@ -224,11 +224,12 @@ Route::get('/dashboard/{serverid}', function ($serverid) {
     return view('dashboard.index')->with('request', $serverid);
 });
 Route::get('/dashboard/{serverid}/{module}', function ($serverid, $modulename) {
-    if (view()->exists('dashboard.'.$modulename . '.module')) {
-        return view('dashboard.'.$modulename . '.module')->with(['serverid' => $serverid]);
-    } else {
-        return view('error.404');
-    }
+    return view('dashboard.'.$modulename . '.test')->with(['serverid' => $serverid]);
+    // if (view()->exists('dashboard.'.$modulename . '.module')) {
+    //     return view('dashboard.'.$modulename . '.module')->with(['serverid' => $serverid]);
+    // } else {
+    //     return view('error.404');
+    // }
 });
 
 

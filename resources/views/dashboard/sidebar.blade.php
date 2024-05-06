@@ -16,7 +16,9 @@ foreach($userGuilds as $guild) {
    }
    
 }
-
+$sername = 'test';
+$serid = 'test';
+$sericon = 'test';
 ?>
 
 
@@ -28,6 +30,7 @@ foreach($userGuilds as $guild) {
 
     <title>{{ $title ?? 'zPoq | Dashboard' }}</title>
     <link rel="icon" href="{{ asset('img/logo_sans.png') }}">
+	@vite('resources/css/app.css')
 
 
 
