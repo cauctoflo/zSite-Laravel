@@ -299,6 +299,8 @@ Route::post('/dashboard/{serverid}/accueil/Bvn/save', function ($serverid, Illum
         $data->delete();
     }
 
+
+
     // Recrée les données pour les modules Aur et BMP avec les données sauvegardées
     foreach ($aurData as $data) {
         $aurModule = new \App\Models\ModuleAccueil();
@@ -309,7 +311,7 @@ Route::post('/dashboard/{serverid}/accueil/Bvn/save', function ($serverid, Illum
         $aurModule->message = $data->message;
         $aurModule->channel = $data->channel;
         $aurModule->role = $data->role;
-        $aurModule->log = $data->log;
+        $aurModule->log = $data->log ?? "-";
         $aurModule->save();
     }
 
@@ -322,7 +324,7 @@ Route::post('/dashboard/{serverid}/accueil/Bvn/save', function ($serverid, Illum
         $bmpModule->message = $data->message;
         $bmpModule->channel = $data->channel;
         $bmpModule->role = $data->role;
-        $bmpModule->log = $data->log;
+        $bmpModule->log = $data->log ?? "-";
         $bmpModule->save();
     }
 
@@ -387,7 +389,7 @@ Route::post('/dashboard/{serverid}/accueil/Aur/save', function ($serverid, Illum
         $aurModule->message = $data->message;
         $aurModule->channel = $data->channel;
         $aurModule->role = $data->role;
-        $aurModule->log = $data->log;
+        $aurModule->log = $data->log ?? "-";
         $aurModule->save();
     }
 
@@ -400,7 +402,7 @@ Route::post('/dashboard/{serverid}/accueil/Aur/save', function ($serverid, Illum
         $bmpModule->message = $data->message;
         $bmpModule->channel = $data->channel;
         $bmpModule->role = $data->role;
-        $bmpModule->log = $data->log;
+        $bmpModule->log = $data->log ?? "-";
         $bmpModule->save();
     }
 
@@ -462,7 +464,7 @@ Route::post('/dashboard/{serverid}/accueil/BMP/save', function ($serverid, Illum
         $aurModule->message = $data->message;
         $aurModule->channel = $data->channel;
         $aurModule->role = $data->role;
-        $aurModule->log = $data->log;
+        $aurModule->log = $data->log ?? "-";
         $aurModule->save();
     }
 
@@ -475,7 +477,7 @@ Route::post('/dashboard/{serverid}/accueil/BMP/save', function ($serverid, Illum
         $bmpModule->message = $data->message;
         $bmpModule->channel = $data->channel;
         $bmpModule->role = $data->role;
-        $bmpModule->log = $data->log;
+        $bmpModule->log = $data->log ?? "-";
         $bmpModule->save();
     }
     $accueilData = new \App\Models\ModuleAccueil();

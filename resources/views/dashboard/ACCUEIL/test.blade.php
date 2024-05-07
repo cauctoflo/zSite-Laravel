@@ -65,6 +65,8 @@ function SendRequestAPIDiscord($serverid, $reference) {
 }
 
 $channels = SendRequestAPIDiscord($serverid, 'channel');
+
+
 foreach ($channels as $channel) {
     echo "Name: " . $channel['name'] . ", Type: " . $channel['type'] . ", ID: " . $channel['id'] . "<br>";
 }
@@ -211,6 +213,15 @@ foreach ($columns as $column) {
                                        {{ $channelName['name'] }}
                                     </label>
                                     @endforeach --}}
+                                    
+                                    @foreach ($channels as $channel)
+                                        <label class="block font-thin px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
+                                            <input class="font-thin" type="radio" id="channel" name="channel1" value="{{ $channel['name'] }}" onclick="">
+                                            {{ $channel['name'] }}
+                                        </label>
+                                        {{-- Name: {{ $channel['name'] }}, Type: {{ $channel['type'] }}, ID: {{ $channel['id'] }} <br> --}}
+                                    @endforeach
+
                                  </div>
                               </div>
                            </div>
@@ -266,12 +277,13 @@ foreach ($columns as $column) {
                                        <input type="radio" id="channel" name="role" value="" onclick="">
                                        Aucun
                                     </label>
-                                    {{-- @foreach ($RoleName->original['roleNames'] as $channelName)
-                                    <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
-                                       <input type="radio" id="role" name="role" value="{{ $channelName }}" onclick="">
-                                       {{ $channelName }}
-                                    </label>
-                                    @endforeach --}}
+                                    @foreach ($roles as $channel)
+                                        <label class="block font-thin px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
+                                            <input class="font-thin" type="radio" id="channel" name="channel1" value="{{ $channel['name'] }}" onclick="">
+                                            {{ $channel['name'] }}
+                                        </label>
+                                        {{-- Name: {{ $channel['name'] }}, Type: {{ $channel['type'] }}, ID: {{ $channel['id'] }} <br> --}}
+                                    @endforeach
                                  </div>
                               </div>
                            </div>
@@ -313,12 +325,13 @@ foreach ($columns as $column) {
                                           <input type="radio" id="channel" name="channel3" value="" onclick="">
                                           Aucun
                                        </label>
-                                       {{-- @foreach ($channelNames->original['channelData'] as $channelName)
-                                       <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
-                                          <input type="radio" id="channel3" name="channel3" value="{{ $channelName['name'] }}" onclick="">
-                                          {{ $channelName['name'] }}
+                                       @foreach ($channels as $channel)
+                                       <label class="block font-thin px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
+                                           <input class="font-thin" type="radio" id="channel3" name="channel3" value="{{ $channel['name'] }}" onclick="">
+                                           {{ $channel['name'] }}
                                        </label>
-                                       @endforeach --}}
+                                       {{-- Name: {{ $channel['name'] }}, Type: {{ $channel['type'] }}, ID: {{ $channel['id'] }} <br> --}}
+                                   @endforeach
                                     </div>
                                  </div>
                               </div>
