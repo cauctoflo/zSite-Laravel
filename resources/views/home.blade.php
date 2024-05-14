@@ -41,12 +41,21 @@
                 $userUncomondGuilds = session('userUncomondGuilds');
 
 
+                $discords = new App\Models\DiscordGlobal();
+                $DiscordGlobal = $discords->get();  
 
 
+
+                
+   
 
                 foreach($userGuilds as $guild) {
                     $serverid = $guild['id'];
                     if (is_array($guild) && array_key_exists('name', $guild)) {
+                       
+                            
+                        
+                        
                         echo '<div class="flex  flex-col shadow-sm rounded-xl bg-gray-800 hover:bg-gray-700 hover:opacity-90 cursor-pointer transition duration-300 ease-in-out">';
                         echo '<div class="p-4 md:p-5 flex gap-x-4">';
                         echo '<div class="flex-shrink-0 flex justify-center items-center w-[46px] h-[46px] rounded-lg  border-gray-800">';

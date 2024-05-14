@@ -192,11 +192,12 @@ Route::get('/tests', [Discords::class, 'Index']);
 
 
 
+
 Route::get('/error/perm', function () {
     return view('Perm');
 });
-Route::get('/error/404', function () {
-    return view('error.404');
+Route::get('/error/notfound', function () {
+    return view('error.notfound');
 });
 Route::fallback(function () {
     return view('error/404');

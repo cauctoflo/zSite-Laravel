@@ -35,12 +35,12 @@
         </div>
         <div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last-pe-0 mb-5">
             
-            <a href="/users/000" class="text-gray-400 inline-flex items-center gap-x-2 focus:outline-none focus:ring-1 focus:ring-gray-600">
+            <a href="/error/notfound" class="text-gray-400 inline-flex items-center gap-x-2 focus:outline-none focus:ring-1 focus:ring-gray-600">
                 <i class="bi bi-people flex-shrink-0" style="font-size: 16px;"></i> Mes informations
             </a>
         </div>
         <div class="snap-center shrink-0 pe-5 sm:pe-8 sm:last-pe-0 mb-5">
-            <a href="/premium/buy" class="inline-flex items-center gap-x-2 text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600">
+            <a href="/error/notfound" class="inline-flex items-center gap-x-2 text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-600">
                 <i class="bi bi-people flex-shrink-0" style="font-size: 16px;"></i> Mon abonnement
             </a>
         </div>

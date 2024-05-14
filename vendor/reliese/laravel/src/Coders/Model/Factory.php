@@ -337,7 +337,7 @@ class Factory
                 }
 
                 $importableDependencies[trim($usedClass, '\\')] = true;
-                $placeholder = str_replace($usedClass, $className, $placeholder);
+                $placeholder = preg_replace('!'.addslashes($usedClass).'\b!', addslashes($className), $placeholder, 1);
             }
         }
 
