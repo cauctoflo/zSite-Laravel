@@ -29,6 +29,8 @@ use Illuminate\Support\Facades\Schema;
 
 Route::get('/', function () {
     return view('maintenance');
+});Route::get('/abc', function () {
+    return view('vitrine.index');
 });
 
 
