@@ -224,6 +224,9 @@ Route::get('/dashboard', function () {
 Route::get('/dashboard/{serverid}', function ($serverid) {
     return view('dashboard.index')->with('request', $serverid);
 });
+Route::get('/dashboard/my/informations', function () {
+    return view('dashboard.info');
+});
 Route::get('/dashboard/{serverid}/{module}', function ($serverid, $modulename) {
     return view('dashboard.'.$modulename . '.test')->with(['serverid' => $serverid]);
     // if (view()->exists('dashboard.'.$modulename . '.module')) {
@@ -295,7 +298,7 @@ Route::post('/dashboard/{serverid}/accueil/Bvn/save', function ($serverid, Illum
     $data = \App\Models\ModuleAccueil::where('module', 'Bvn')->where('id', $serverid)->first();
     $aurData = \App\Models\ModuleAccueil::where('module', 'Aur')->where('id', $serverid)->get();
     $bmpData = \App\Models\ModuleAccueil::where('module', 'BMP')->where('id', $serverid)->get();
-
+    
     if ($data) {
         $data->delete();
     }
@@ -343,30 +346,76 @@ Route::post('/dashboard/{serverid}/accueil/Bvn/save', function ($serverid, Illum
         $accueilData->toggle = !empty($request->input('message'));
     }    
 
-    $channelName = $request->input('channel1');
-    $discordController = new \App\Http\Controllers\DiscordController();
-    $channelid = $discordController->getDiscordChannelId($serverid, $channelName);
 
-    $accueilData->channel = $channelid ?? "-";
-
-    $roleName = $request->input('role');
-    $discordController = new \App\Http\Controllers\DiscordController();
-    $roleId = $discordController->getDiscordRoleId($serverid, $roleName);
-
-    $accueilData->role = $roleId ?? "-";
-    
-    $channelName = $request->input('channel3');
-    $discordController = new \App\Http\Controllers\DiscordController();
-    $channelid = $discordController->getDiscordChannelId($serverid, $channelName);
-
-    $accueilData->log = $channelid ;
+    $accueilData->channel = $request->input('channel1') ?? "-";
+    $accueilData->role = $request->input('role') ?? "-";
+    $accueilData->log = $request->input('channel3') ?? "-"; ;
     $accueilData->save();
 
     echo response()->json([
         'updatedData' => $accueilData
     ]);
+    \Illuminate\Support\Facades\Log::info('Bvn Data Updated: ' . $accueilData);
+
     return redirect('/dashboard/' . $serverid);
 });
+
+
+
+
+// Route::post('/dashboard/{serverid}/accueil/Bvn/save', function ($serverid, Illuminate\Http\Request $request) { 
+//     // Recherche l'enregistrement existant pour 'Bvn' et 'serverid'
+//     $bvnData = \App\Models\ModuleAccueil::where('module', 'Bvn')->where('id', $serverid)->get();
+//     if ($bvnData->count() > 0) {
+//         $bvnData = $bvnData->first();
+//         if ($bvnData->module == 'Bvn') {
+//             // Met à jour les propriétés de l'enregistrement
+//             $bvnData->toggle = !empty($request->input('message'));
+//             $bvnData->type = "Message";
+//             $bvnData->message = $request->input('message') ?: "-";
+//             $bvnData->channel = $request->input('channel1') ?: "-";
+//             $bvnData->role = $request->input('role') ?: "-";
+//             $bvnData->log = $request->input('channel3') ?: "-";
+
+//             // Sauvegarde l'enregistrement
+//             if ($bvnData->module == 'Bvn' && $bvnData->id == $serverid) {
+//                 $bvnData->save();
+//             } else {
+//                 echo ("error");
+//             }
+//         }
+//     } else {
+//         echo ("No record found for Bvn with the provided id");
+//     }
+
+//         // Log des données après sauvegarde
+//         \Illuminate\Support\Facades\Log::info('Bvn Data Updated: ' . $bvnData);
+
+//         return response()->json([
+//             'message' => 'Valeurs modifiées avec succès',
+//             'bvndata' => $bvnData
+//         ]);
+    
+// });
+
+
+
+// use App\Models\ModuleAccueil;
+
+// Route::get('/dashboard/{serverid}/test', function ($serverid, Illuminate\Http\Request $request) { 
+//     $data = ModuleAccueil::where('id', $serverid)->where('module', 'Bvn')->first();
+
+
+
+   
+// });
+
+
+
+
+
+
+
 
 Route::post('/dashboard/{serverid}/accueil/Aur/save', function ($serverid, Illuminate\Http\Request $request) { 
     $data = \App\Models\ModuleAccueil::where('module', 'Aur')->where('id', $serverid)->first();
@@ -422,28 +471,17 @@ Route::post('/dashboard/{serverid}/accueil/Aur/save', function ($serverid, Illum
         $accueilData->toggle = !empty($request->input('message'));
     }   
 
-    $channelName = $request->input('channel1');
-    $discordController = new \App\Http\Controllers\DiscordController();
-    $channelid = $discordController->getDiscordChannelId($serverid, $channelName);
 
-    $accueilData->channel = $channelid ?? "-";
 
-    $roleName = $request->input('role');
-    $discordController = new \App\Http\Controllers\DiscordController();
-    $roleId = $discordController->getDiscordRoleId($serverid, $roleName);
-
-    $accueilData->role = $roleId ?? "-";
-    
-    $channelName = $request->input('channel3');
-    $discordController = new \App\Http\Controllers\DiscordController();
-    $channelid = $discordController->getDiscordChannelId($serverid, $channelName);
-
-    $accueilData->log = $channelid ;
+    $accueilData->channel = $request->input('channel1') ?? "-";
+    $accueilData->role = $request->input('role') ?? "-";
+    $accueilData->log = $request->input('channel3') ?? "-"; ;
     $accueilData->save();
-    $accueilData->save();
+
     echo response()->json([
         'updatedData' => $accueilData
     ]);
+    \Illuminate\Support\Facades\Log::info('Bvn Data Updated: ' . $accueilData);
     return redirect('/dashboard/' . $serverid);
 });
 Route::post('/dashboard/{serverid}/accueil/BMP/save', function ($serverid, Illuminate\Http\Request $request) { 
@@ -497,28 +535,15 @@ Route::post('/dashboard/{serverid}/accueil/BMP/save', function ($serverid, Illum
         $accueilData->toggle = !empty($request->input('message'));
     }   
 
-    $channelName = $request->input('channel1');
-    $discordController = new \App\Http\Controllers\DiscordController();
-    $channelid = $discordController->getDiscordChannelId($serverid, $channelName);
-
-    $accueilData->channel = $channelid ?? "-";
-
-    $roleName = $request->input('role');
-    $discordController = new \App\Http\Controllers\DiscordController();
-    $roleId = $discordController->getDiscordRoleId($serverid, $roleName);
-
-    $accueilData->role = $roleId ?? "-";
-    
-    $channelName = $request->input('channel3');
-    $discordController = new \App\Http\Controllers\DiscordController();
-    $channelid = $discordController->getDiscordChannelId($serverid, $channelName);
-
-    $accueilData->log = $channelid ;
+    $accueilData->channel = $request->input('channel1') ?? "-";
+    $accueilData->role = $request->input('role') ?? "-";
+    $accueilData->log = $request->input('channel3') ?? "-" ;
     $accueilData->save();
-    $accueilData->save();
+
     echo response()->json([
         'updatedData' => $accueilData
     ]);
+    \Illuminate\Support\Facades\Log::info('Bvn Data Updated: ' . $accueilData);
     return redirect('/dashboard/' . $serverid);
 });
 

@@ -1,6 +1,10 @@
 @php 
 
 $url = request()->url();
+if (substr($url, -1) === '/sucess') {
+   echo "bon chien";
+}
+
 $serverid = explode('/', $url)[4];
 
 use Illuminate\Support\Facades\Log;
@@ -88,6 +92,7 @@ $table = ['Bvn' => []];
 foreach ($columns as $column) {
     $value = DB::table('module_accueil')->where('module', 'Bvn')->where('id', $serverid)->value($column);
     $table['Bvn'][$column] = $value;
+   //  echo $column . ': ' . $value . '<br>';
 }
 foreach ($columns as $column) {
     $value_Aur = DB::table('module_accueil')->where('module', 'Aur')->where('id', $serverid)->value($column);
@@ -224,7 +229,7 @@ foreach ($columns as $column) {
                                     
                                     @foreach ($channels as $channel)
                                         <label class="block font-thin px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
-                                            <input class="font-thin" type="radio" id="channel" name="channel1" value="{{ $channel['name'] }}" onclick="">
+                                            <input class="font-thin" type="radio" id="channel" name="channel1" value="{{ $channel['id'] }}" onclick="">
                                             {{ $channel['name'] }}
                                         </label>
                                         {{-- Name: {{ $channel['name'] }}, Type: {{ $channel['type'] }}, ID: {{ $channel['id'] }} <br> --}}
@@ -284,14 +289,14 @@ foreach ($columns as $column) {
                                  class="absolute left-0 w-[17rem] max-h-[10rem] overflow-y-auto text-center  origin-top-left bg-gray-900 divide-y divide-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-300">
                                  <div class="py-4 -mt-4">
                                     <label class="block px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer ">
-                                       <input type="radio" id="channel" name="role" value="" onclick="">
+                                       <input type="radio" id="role" name="role" value="" onclick="">
                                        Aucun
                                     </label>
                                     @foreach ($roles as $channel)
                                     @if ($channel['id'] !== $serverid)
 
                                         <label class="block font-thin px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
-                                            <input class="font-thin" type="radio" id="channel" name="channel1" value="{{ $channel['name'] }}" onclick="">
+                                            <input class="font-thin" type="radio" id="role" name="role" value="{{ $channel['id'] }}" onclick="">
                                             {{ $channel['name'] }}
                                         </label>
                                         @endif
@@ -315,21 +320,25 @@ foreach ($columns as $column) {
                               <div class="group">
                                  <label for="channel" class="inline-flex justify-center items-center w-[17rem] rounded-xl px-4 py-2 text-sm font-medium text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:bg-gray-700 cursor-pointer">
                                     @foreach ($table as $key => $values)
-                                       @if ($key === 'Bvn')
-                                          @foreach ($values as $column => $value)
-                                             @if ($column === 'log')
-                                                @foreach ($channels as $channel)
+                                    @if ($key === 'Bvn')
+      
+                                            @foreach ($values as $column => $value)
+                                                @if ($column === 'log')
+                                                    
+                                                    @foreach ($channels as $channel)
+                                                    @if ($channel['id'] === $value)
+                                                        {{ $channel['name'] }}
+                                                    @endif
+      
                                                    
-                                                      @if ($channel['id'] === $value)
-                                                         @if ($channel['type'] === 'text')
-                                                            {{ $channel['name'] }}
-                                                         @endif
-                                                   @endif
-                                                @endforeach
-                                             @endif
-                                          @endforeach
-                                       @endif
-                                    @endforeach
+                                                    @endforeach
+                                                @endif
+                                            @endforeach
+                                        
+                                        @endif
+                                @endforeach
+                                    
+                                    
 
                                     <!-- Dropdown arrow -->
                                     <svg class="w-4 h-4 ml-2 -mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -348,7 +357,7 @@ foreach ($columns as $column) {
                                        @if ($channel['type'] == 0)
                                        
                                           <label class="block font-thin px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
-                                             <input class="font-thin" type="radio" id="channel3" name="channel3" value="{{ $channel['name'] }}" onclick="">
+                                             <input class="font-thin" type="radio" id="channel3" name="channel3" value="{{ $channel['id'] }}" onclick="">
                                              {{ $channel['name'] }}
                                           </label>
                                           @endif
@@ -537,7 +546,7 @@ foreach ($columns as $column) {
                               @if ($channel['type'] == 0)
 
                                   <label class="block font-thin px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
-                                      <input class="font-thin" type="radio" id="channel" name="channel1" value="{{ $channel['name'] }}" onclick="">
+                                      <input class="font-thin" type="radio" id="channel" name="channel1" value="{{ $channel['id'] }}" onclick="">
                                       {{ $channel['name'] }}
                                   </label>
                                   @endif
@@ -603,7 +612,7 @@ foreach ($columns as $column) {
                               @if ($channel['id'] !== $serverid)
 
                                   <label class="block font-thin px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
-                                      <input class="font-thin" type="radio" id="channel" name="channel1" value="{{ $channel['name'] }}" onclick="">
+                                      <input class="font-thin" type="radio" id="channel" name="channel1" value="{{ $channel['id'] }}" onclick="">
                                       {{ $channel['name'] }}
                                   </label>
                                   @endif
@@ -661,7 +670,7 @@ foreach ($columns as $column) {
                                  @if ($channel['type'] == 0)
 
                                  <label class="block font-thin px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
-                                     <input class="font-thin" type="radio" id="channel3" name="channel3" value="{{ $channel['name'] }}" onclick="">
+                                     <input class="font-thin" type="radio" id="channel3" name="channel3" value="{{ $channel['id'] }}" onclick="">
                                      {{ $channel['name'] }}
                                  </label>
                                  @endif
@@ -682,17 +691,20 @@ foreach ($columns as $column) {
                   <label class="block text-gray-400 font-bold mb-2" for="number">
                      Message
                   </label>
-                  <textarea name="message" class="hover:outline-white hover:cursor-pointer h-auto pb-10 w-full bg-slate-900 text-white outline-none bg-grey-700 rounded-lg pl-4 pr-6 lg:pr-10 leading-relaxed border border-solid transition duration-200 border-grey-700 focus:ring-opacity-30 focus:border-blue-default focus:ring-[4px] focus:ring-blue-default text-grey-500 text-sm py-4"
-                     id="role" placeholder="" value="" rows="1">
+                  <textarea name="message" class="hover:outline-white hover:cursor-pointer h-auto p-20 pb-10 w-full bg-slate-900 text-white outline-none bg-grey-700 rounded-lg pl-4 pr-6 lg:pr-10 leading-relaxed border border-solid transition duration-200 border-grey-700 focus:ring-opacity-30 focus:border-blue-default focus:ring-[4px] focus:ring-blue-default text-grey-500 text-sm py-4"
+                     id="role" placeholder="" value="
+
+                     " rows="1">
+
                      @foreach ($table_Aur as $key => $value_Aur)
-                          @if ($key === 'Aur')
-                                  @foreach ($value_Aur as $column => $value)
-                                      @if ($column === 'message')
-                                          {{ $value }}
-                                      @endif
-                                  @endforeach
-                              @endif
-                      @endforeach
+                     @if ($key === 'Aur')
+                             @foreach ($value_Aur as $column => $value)
+                                 @if ($column === 'message')
+                                     {{ $value }}
+                                 @endif
+                             @endforeach
+                         @endif
+                 @endforeach
                   
                   </textarea>
                   <p class="text-sm text-gray-500  max-w-96">Rentrez un message qui sera envoyé lors de l'arrivée d'un utilisateur sur votre serveur discord</p>
@@ -850,7 +862,7 @@ foreach ($columns as $column) {
                                  @if ($channel['type'] == 0)
 
                                      <label class="block font-thin px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
-                                         <input class="font-thin" type="radio" id="channel" name="channel1" value="{{ $channel['name'] }}" onclick="">
+                                         <input class="font-thin" type="radio" id="channel" name="channel1" value="{{ $channel['id'] }}" onclick="">
                                          {{ $channel['name'] }}
                                      </label>
                                      @endif
@@ -916,7 +928,7 @@ foreach ($columns as $column) {
                                  @if ($channel['id'] !== $serverid)
 
                                      <label class="block font-thin px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
-                                         <input class="font-thin" type="radio" id="channel" name="channel1" value="{{ $channel['name'] }}" onclick="">
+                                         <input class="font-thin" type="radio" id="channel" name="channel1" value="{{ $channel['id'] }}" onclick="">
                                          {{ $channel['name'] }}
                                      </label>
                                      @endif
@@ -974,7 +986,7 @@ foreach ($columns as $column) {
                                     @if ($channel['type'] == 0)
 
                                     <label class="block font-thin px-4 py-2 text-sm text-white hover:bg-gray-500 cursor-pointer">
-                                        <input class="font-thin" type="radio" id="channel3" name="channel3" value="{{ $channel['name'] }}" onclick="">
+                                        <input class="font-thin" type="radio" id="channel3" name="channel3" value="{{ $channel['id'] }}" onclick="">
                                         {{ $channel['name'] }}
                                     </label>
                                     @endif
