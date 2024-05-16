@@ -15,7 +15,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-800">
+<body class="bg-white">
 <section class="h-screen bg-[#609396] text-white " >
 
 
@@ -41,12 +41,16 @@
         </div>
     </div>
 
-    <div class="max-w-7xl mt-14 mx-auto relative">
+    <div class="max-w-7xl mt-20 mx-auto relative">
       <div class="relative py-16 flex justify-center px-4 sm:px-0">
         <div class="max-w-3xl text-center">
-          <div class="pb-4">
-            <span class="inline-flex items-center rounded-2xl bg-orange-100 px-4 py-1.5 text-xs sm:text-sm font-serif font-medium text-orange-700">Débloque tout le potentiels de ton serveur discord</span>
-          </div>
+
+        <a href="/invite">
+            <div class="pb-4">
+                <span class="inline-flex items-center rounded-2xl bg-orange-100 px-4 py-1.5 text-xs sm:text-sm font-serif font-medium text-orange-700">Débloque tout le potentiels de ton serveur discord</span>
+              </div>    
+        </a>  
+          
           <h1 style="font-family: Nunito;" class="text-4xl sm:text-5xl font-semibold text-zinc-900 xl:text-6xl font-serif !leading-tight">
             zPoq - Bot Français,  
           </h1>
@@ -204,9 +208,120 @@
     
 
 </section>
-</div>
 
-</script>
-<script src="script.js"></script>
+
+
+<section class="relative z-10 overflow-hidden bg-[#609396] py-16 px-8 mt-40">
+    <div class="container justify-center">
+        
+        <div class="flex flex-wrap items-center justify-center w-full"> 
+            
+            <div class="  px-4 lg:w-2/3">
+                <div class="text-center lg:text-left">
+                    <div class="mb-10 lg:mb-0">
+
+                        <div class="grid grid-cols-3 gap-x-8 gap-y-6 text-center">
+                            <div class="hover:bg-[#7EBDC2] cursor-pointer rounded-lg transition-all duration-900 group-hover:bg-[#8AC4CB]">
+
+                                <dt class="order-2 mt-2 text-lg leading-6 font-medium text-white">Serveurs</dt>
+                                <dd class="order-1 text-5xl font-extrabold text-white">21+</dd>
+                            </div>
+
+                            <div class="hover:bg-[#7EBDC2] cursor-pointer rounded-lg transition-all duration-900 group-hover:bg-[#8AC4CB]">
+                                <dt class="group-hover:text-orange-500 order-2 mt-2 text-lg leading-6 font-medium text-white">Utilisateur</dt>
+                                <dd class="order-1 text-5xl font-extrabold text-white">1800+</dd>
+                            </div>                            
+                            <div class="hover:bg-[#7EBDC2] cursor-pointer rounded-lg transition-all duration-900 group-hover:bg-[#8AC4CB]">
+                                <dt class="order-2 mt-2 text-lg leading-6 font-medium text-white">Partenaire</dt>
+                                <dd class="order-1 text-5xl font-extrabold text-white">3+</dd>
+                            </div>
+                        </div>
+                        {{-- <h1
+                            class="mt-0 mb-3 text-3xl font-bold leading-tight sm:text-4xl sm:leading-tight md:text-[40px] md:leading-tight text-white ">
+                            Start building automated serverless forms</h1>
+                        <p
+                            class="w-full text-base font-medium leading-relaxed sm:text-lg sm:leading-relaxed text-white">
+                        </p> --}}
+
+                        
+                    </div>
+                </div>
+            </div>
+            
+      
+            
+        </div>
+    </div>
+    <span class="absolute top-0 right-0 -z-10">
+        <svg width="388" height="250" viewBox="0 0 388 220" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.05" d="M203 -28.5L4.87819e-05 250.5L881.5 250.5L881.5 -28.5002L203 -28.5Z" fill="url(#paint0_linear_971_6910)"></path><defs><linearGradient id="paint0_linear_971_6910" x1="60.5" y1="111" x2="287" y2="111" gradientUnits="userSpaceOnUse"><stop offset="0.520507" stop-color="white"></stop><stop offset="1" stop-color="white" stop-opacity="0"></stop></linearGradient></defs></svg></span><span class="absolute top-0 right-0 -z-10"><svg width="324" height="250" viewBox="0 0 324 220" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.05" d="M203 -28.5L4.87819e-05 250.5L881.5 250.5L881.5 -28.5002L203 -28.5Z" fill="url(#paint0_linear_971_6911)"></path><defs><linearGradient id="paint0_linear_971_6911" x1="60.5" y1="111" x2="287" y2="111" gradientUnits="userSpaceOnUse"><stop offset="0.520507" stop-color="white"></stop><stop offset="1" stop-color="white" stop-opacity="0"></stop></linearGradient></defs></svg></span><span class="absolute top-4 left-4 -z-10"><svg width="43" height="56" viewBox="0 0 43 56" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.5"><circle cx="40.9984" cy="1.49626" r="1.49626" transform="rotate(90 40.9984 1.49626)" fill="white"></circle><circle cx="27.8304" cy="1.49626" r="1.49626" transform="rotate(90 27.8304 1.49626)" fill="white"></circle><circle cx="14.6644" cy="1.49626" r="1.49626" transform="rotate(90 14.6644 1.49626)" fill="white"></circle><circle cx="1.49642" cy="1.49626" r="1.49626" transform="rotate(90 1.49642 1.49626)" fill="white"></circle><circle cx="40.9984" cy="14.6642" r="1.49626" transform="rotate(90 40.9984 14.6642)" fill="white"></circle><circle cx="27.8304" cy="14.6642" r="1.49626" transform="rotate(90 27.8304 14.6642)" fill="white"></circle><circle cx="14.6644" cy="14.6642" r="1.49626" transform="rotate(90 14.6644 14.6642)" fill="white"></circle><circle cx="1.49642" cy="14.6642" r="1.49626" transform="rotate(90 1.49642 14.6642)" fill="white"></circle><circle cx="40.9984" cy="27.8302" r="1.49626" transform="rotate(90 40.9984 27.8302)" fill="white"></circle><circle cx="27.8304" cy="27.8302" r="1.49626" transform="rotate(90 27.8304 27.8302)" fill="white"></circle><circle cx="14.6644" cy="27.8302" r="1.49626" transform="rotate(90 14.6644 27.8302)" fill="white"></circle><circle cx="1.49642" cy="27.8302" r="1.49626" transform="rotate(90 1.49642 27.8302)" fill="white"></circle><circle cx="40.9984" cy="40.9982" r="1.49626" transform="rotate(90 40.9984 40.9982)" fill="white"></circle><circle cx="27.8304" cy="40.9963" r="1.49626" transform="rotate(90 27.8304 40.9963)" fill="white"></circle><circle cx="14.6644" cy="40.9982" r="1.49626" transform="rotate(90 14.6644 40.9982)" fill="white"></circle><circle cx="1.49642" cy="40.9963" r="1.49626" transform="rotate(90 1.49642 40.9963)" fill="white"></circle><circle cx="40.9984" cy="54.1642" r="1.49626" transform="rotate(90 40.9984 54.1642)" fill="white"></circle><circle cx="27.8304" cy="54.1642" r="1.49626" transform="rotate(90 27.8304 54.1642)" fill="white"></circle><circle cx="14.6644" cy="54.1642" r="1.49626" transform="rotate(90 14.6644 54.1642)" fill="white"></circle><circle cx="1.49642" cy="54.1642" r="1.49626" transform="rotate(90 1.49642 54.1642)" fill="white"></circle></g>="0"></stop></linearGradient></defs></svg></span><span class="absolute top-4 left-4 -z-10"><svg width="43" height="56" viewBox="0 0 43 56" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.5"><circle cx="40.9984" cy="1.49626" r="1.49626" transform="rotate(90 40.9984 1.49626)" fill="white"></circle><circle cx="27.8304" cy="1.49626" r="1.49626" transform="rotate(90 27.8304 1.49626)" fill="white"></circle><circle cx="14.6644" cy="1.49626" r="1.49626" transform="rotate(90 14.6644 1.49626)" fill="white"></circle><circle cx="1.49642" cy="1.49626" r="1.49626" transform="rotate(90 1.49642 1.49626)" fill="white"></circle><circle cx="40.9984" cy="14.6642" r="1.49626" transform="rotate(90 40.9984 14.6642)" fill="white"></circle><circle cx="27.8304" cy="14.6642" r="1.49626" transform="rotate(90 27.8304 14.6642)" fill="white"></circle><circle cx="14.6644" cy="14.6642" r="1.49626" transform="rotate(90 14.6644 14.6642)" fill="white"></circle><circle cx="1.49642" cy="14.6642" r="1.49626" transform="rotate(90 1.49642 14.6642)" fill="white"></circle><circle cx="40.9984" cy="27.8302" r="1.49626" transform="rotate(90 40.9984 27.8302)" fill="white"></circle><circle cx="27.8304" cy="27.8302" r="1.49626" transform="rotate(90 27.8304 27.8302)" fill="white"></circle><circle cx="14.6644" cy="27.8302" r="1.49626" transform="rotate(90 14.6644 27.8302)" fill="white"></circle><circle cx="1.49642" cy="27.8302" r="1.49626" transform="rotate(90 1.49642 27.8302)" fill="white"></circle><circle cx="40.9984" cy="40.9982" r="1.49626" transform="rotate(90 40.9984 40.9982)" fill="white"></circle><circle cx="27.8304" cy="40.9963" r="1.49626" transform="rotate(90 27.8304 40.9963)" fill="white"></circle><circle cx="14.6644" cy="40.9982" r="1.49626" transform="rotate(90 14.6644 40.9982)" fill="white"></circle><circle cx="1.49642" cy="40.9963" r="1.49626" transform="rotate(90 1.49642 40.9963)" fill="white"></circle><circle cx="40.9984" cy="54.1642" r="1.49626" transform="rotate(90 40.9984 54.1642)" fill="white"></circle><circle cx="27.8304" cy="54.1642" r="1.49626" transform="rotate(90 27.8304 54.1642)" fill="white"></circle><circle cx="14.6644" cy="54.1642" r="1.49626" transform="rotate(90 14.6644 54.1642)" fill="white"></circle><circle cx="1.49642" cy="54.1642" r="1.49626" transform="rotate(90 1.49642 54.1642)" fill="white"></circle></g>
+        </svg>
+    </span>
+</section>
+
+<section >
+
+
+    
+
+    <div class="mx-auto w-full max-w-[1240px] px-6 lg:px-10 py-6 lg:py-10 text-center !py-10 lg:!py-20 ">
+        <div class="flex justify-center items-center flex-col mb-24">
+            <h2 class="text-dark-100 mx-auto max-w-xl font-bold text-[35px] leading-[42px]">Découvrez les tutoriels de votre compagnon zPoq</h2>
+            <div class=" mt-4 -mb-4 h-2 rounded-full bg-orange-500 w-24"></div>
+            <p class="text-dark-300 text-base my-8 w-full max-w-2xl mx-auto">Que vous soyez novice ou expérimenté sur Discord, zPoq et son équipe ont créé des tutoriels et des ressources pour vous aider à commencer à utiliser votre compagnon zPoq. </p>
+        </div>
+        <main class="mt-16">
+           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <a class="h-full" href="">
+                 <div class="h-full aos-init aos-animate" data-aos="fade-up" data-aos-delay="200" data-aos-offset="200">
+                    <div class="rounded-lg bg-dark-800 transition-all duration-200 cursor-pointer transform hover:-translate-y-2 hover:shadow-lg p-8 text-left flex flex-col justify-between h-full">
+                       <div class="l">
+                          <img src="tutoriel2.jpg" class="hover:rounded-2xl rounded-lg object-cover w-full">
+                          <p class="text-dark-100 font-bold text-[22px] mt-4 mb-5">Commencez à utiliser le module Bump et proposez votre serveur.</p>
+                       </div>
+                       <p class="text-dark-300 text-sm flex items-center justify-start hover:font-bold hover:text-orange-400">Continuer la lecture
+                        <svg class="h-5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="blue_copy" style="enable-background:new 0 0 100 100;" version="1.1" viewBox="0 0 100 100" xml:space="preserve"><g id="Layer_8_copy_4_3_"><path d="M28.213,27.267v8.294c0,0.571,0.305,1.1,0.8,1.385l20.212,11.669c1.066,0.616,1.066,2.155,0,2.771L29.013,63.055   c-0.495,0.286-0.8,0.814-0.8,1.385v8.294c0,1.231,1.333,2.001,2.399,1.385l39.375-22.733c1.066-0.616,1.066-2.155,0-2.771   L30.612,25.881C29.546,25.266,28.213,26.035,28.213,27.267z"/><path d="M69.987,48.615L30.612,25.881c-0.193-0.112-0.395-0.164-0.597-0.19l37.972,21.923c1.066,0.616,1.066,2.155,0,2.771   L28.612,73.119c-0.1,0.058-0.205,0.092-0.308,0.126c0.308,0.914,1.401,1.398,2.308,0.874l39.375-22.733   C71.054,50.77,71.054,49.23,69.987,48.615z"/><path d="M28.213,27.267v8.294c0,0.571,0.305,1.1,0.8,1.385l20.212,11.669   c1.066,0.616,1.066,2.155,0,2.771L29.013,63.055c-0.495,0.286-0.8,0.814-0.8,1.385v8.294c0,1.231,1.333,2.001,2.399,1.385   l39.375-22.733c1.066-0.616,1.066-2.155,0-2.771L30.612,25.881C29.546,25.266,28.213,26.035,28.213,27.267z" style="fill:none;stroke:#000000;stroke-miterlimit:10;"/></g></svg>
+
+                       </p>
+                    </div>
+                 </div>
+              </a>
+              <a class="h-full" href="/">
+                 <div class="h-full aos-init aos-animate" data-aos="fade-up" data-aos-delay="300" data-aos-offset="200">
+                    <div class="rounded-lg bg-dark-800 transition-all duration-200 cursor-pointer transform hover:-translate-y-2 hover:shadow-lg p-8 text-left flex flex-col justify-between h-full">
+                       <div>
+                          <img src="tutoriel.jpg" class="rounded-lg object-cover w-full hover:rounded-2xl">
+                          <p class="text-dark-100 font-bold text-[22px] mt-4 mb-5">
+                            Commencez à utiliser le module Accueil et rendez votre serveur plus accueillant.</p>
+                       </div>
+                       <p class="text-dark-300 text-sm flex items-center justify-start hover:font-bold hover:text-orange-400">Continuer la lecture
+                        <svg class="h-5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="blue_copy" style="enable-background:new 0 0 100 100;" version="1.1" viewBox="0 0 100 100" xml:space="preserve"><g id="Layer_8_copy_4_3_"><path d="M28.213,27.267v8.294c0,0.571,0.305,1.1,0.8,1.385l20.212,11.669c1.066,0.616,1.066,2.155,0,2.771L29.013,63.055   c-0.495,0.286-0.8,0.814-0.8,1.385v8.294c0,1.231,1.333,2.001,2.399,1.385l39.375-22.733c1.066-0.616,1.066-2.155,0-2.771   L30.612,25.881C29.546,25.266,28.213,26.035,28.213,27.267z"/><path d="M69.987,48.615L30.612,25.881c-0.193-0.112-0.395-0.164-0.597-0.19l37.972,21.923c1.066,0.616,1.066,2.155,0,2.771   L28.612,73.119c-0.1,0.058-0.205,0.092-0.308,0.126c0.308,0.914,1.401,1.398,2.308,0.874l39.375-22.733   C71.054,50.77,71.054,49.23,69.987,48.615z"/><path d="M28.213,27.267v8.294c0,0.571,0.305,1.1,0.8,1.385l20.212,11.669   c1.066,0.616,1.066,2.155,0,2.771L29.013,63.055c-0.495,0.286-0.8,0.814-0.8,1.385v8.294c0,1.231,1.333,2.001,2.399,1.385   l39.375-22.733c1.066-0.616,1.066-2.155,0-2.771L30.612,25.881C29.546,25.266,28.213,26.035,28.213,27.267z" style="fill:none;stroke:#000000;stroke-miterlimit:10;"/></g></svg>
+
+                       </p>
+                    </div>
+                 </div>
+              </a>
+              <a class="h-full" href="">
+                 <div class="h-full aos-init aos-animate" data-aos="fade-up" data-aos-delay="400" data-aos-offset="200">
+                    <div class="rounded-lg bg-dark-800 transition-all duration-200 cursor-pointer transform hover:-translate-y-2 hover:shadow-lg p-8 text-left flex flex-col justify-between h-full">
+                       <div>
+                          <img src="tutoriel2.jpg" class="rounded-lg object-cover w-full hover:rounded-2xl">
+                          <p class="text-dark-100 font-bold text-[22px] mt-4 mb-5">Commencez à utiliser le module de Modération et dites adieu aux personnes indésirables.</p>
+                       </div>
+                       <p class="text-dark-300 text-sm flex items-center justify-start hover:font-bold hover:text-orange-400">Continuer la lecture
+                        <svg class="h-5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="blue_copy" style="enable-background:new 0 0 100 100;" version="1.1" viewBox="0 0 100 100" xml:space="preserve"><g id="Layer_8_copy_4_3_"><path d="M28.213,27.267v8.294c0,0.571,0.305,1.1,0.8,1.385l20.212,11.669c1.066,0.616,1.066,2.155,0,2.771L29.013,63.055   c-0.495,0.286-0.8,0.814-0.8,1.385v8.294c0,1.231,1.333,2.001,2.399,1.385l39.375-22.733c1.066-0.616,1.066-2.155,0-2.771   L30.612,25.881C29.546,25.266,28.213,26.035,28.213,27.267z"/><path d="M69.987,48.615L30.612,25.881c-0.193-0.112-0.395-0.164-0.597-0.19l37.972,21.923c1.066,0.616,1.066,2.155,0,2.771   L28.612,73.119c-0.1,0.058-0.205,0.092-0.308,0.126c0.308,0.914,1.401,1.398,2.308,0.874l39.375-22.733   C71.054,50.77,71.054,49.23,69.987,48.615z"/><path d="M28.213,27.267v8.294c0,0.571,0.305,1.1,0.8,1.385l20.212,11.669   c1.066,0.616,1.066,2.155,0,2.771L29.013,63.055c-0.495,0.286-0.8,0.814-0.8,1.385v8.294c0,1.231,1.333,2.001,2.399,1.385   l39.375-22.733c1.066-0.616,1.066-2.155,0-2.771L30.612,25.881C29.546,25.266,28.213,26.035,28.213,27.267z" style="fill:none;stroke:#000000;stroke-miterlimit:10;"/></g></svg>
+
+                       </p>
+                    </div>
+                 </div>
+              </a>
+           </div>
+           <a href="/en/tutorials" class="relative flex overflow-hidden shrink-0 rounded-lg transition-all duration-200 items-center  gap-1.5 bg-white bg-opacity-10 text-white hover:bg-opacity-20 active:bg-opacity-5 active:text-opacity-60 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-opacity-10 w-full md:w-max mx-auto mt-10 md:mt-16 text-base px-6 py-3">
+              <div class="flex  grow justify-center max-w-full"><span class="transition-all duration-200 whitespace-nowrap text-ellipsis overflow-hidden block w-full shrink-0 text-center">Learn more</span></div>
+           </a>
+        </main>
+     </div>
+
+</section>
+
 </body>
 </html>
