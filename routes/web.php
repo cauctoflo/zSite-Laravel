@@ -27,9 +27,20 @@ use Illuminate\Support\Facades\Schema;
 
 
 
-Route::get('/', function () {
+Route::get('/maintenance', function () {
     return view('maintenance');
-});Route::get('/abc', function () {
+});
+
+Route::get('/', function () {
+    return view('vitrine.index');
+});
+
+Route::get('/partenaire', function () {
+    return view('vitrine.partner');
+});
+
+
+Route::get('/abc', function () {
     return view('vitrine.index');
 });
 
